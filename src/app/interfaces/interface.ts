@@ -3,3 +3,8 @@ export enum Role {
   ADMIN = "admin",
   AGENT = "agent",
 }
+
+export interface IAuthProvider {
+  provider: "google" | "credentials";
+  providerId: string;
+}

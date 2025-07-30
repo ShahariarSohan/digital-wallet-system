@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Role } from "../../interfaces/interface";
+import { IAuthProvider, Role } from "../../interfaces/interface";
 
 export interface IUser {
   _id?: string;
@@ -8,6 +8,7 @@ export interface IUser {
   password: string;
   phone?: string;
   role?: Role;
+  auths: IAuthProvider[];
   isActive?: boolean;
   isDeleted?: boolean;
   isVerified?: boolean;
