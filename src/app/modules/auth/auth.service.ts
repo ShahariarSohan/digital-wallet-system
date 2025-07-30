@@ -8,11 +8,16 @@ import { bcryptComparePassword } from '../../utils/comparePassword';
 import { createUserToken } from '../../utils/createToken';
 import { setAuthCookie } from '../../utils/setCookie';
 import { Response } from 'express';
+import { Admin } from '../admin/admin.model';
+
 
 const credentialsLogin = async (res:Response ,payload:ILogin) => {
     let isAccountExist = await User.findOne({ email: payload.email })
     if (!isAccountExist) {
         isAccountExist=await Agent.findOne({email:payload.email})
+    }
+    if (!isAccountExist) {
+        isAccountExist=await Admin.findOne({email:payload.email})
     }
     if (!isAccountExist) {
         throw new AppError(httpStatus.NOT_FOUND,"Account doesn't exist")

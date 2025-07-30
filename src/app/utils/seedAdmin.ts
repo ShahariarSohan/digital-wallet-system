@@ -1,12 +1,15 @@
 import { envVars } from "../config/env";
 import { IAuthProvider, Role } from "../interfaces/interface";
-import { IUser } from "../modules/user/user.interface";
-import { User } from "../modules/user/user.model";
+import { IAdmin } from "../modules/admin/admin.interface";
+import { Admin } from "../modules/admin/admin.model";
+
+
+
 import { bcryptHashPassword } from "./hashPassword";
 
 export const seedAdmin = async () => {
   try {
-    const isAdminExist = await User.findOne({ email: envVars.ADMIN_EMAIL });
+    const isAdminExist = await Admin.findOne({ email: envVars.ADMIN_EMAIL });
     if (isAdminExist) {
       console.log("Admin Already Exist");
       return;
@@ -19,16 +22,16 @@ export const seedAdmin = async () => {
       provider: "credentials",
       providerId: envVars.ADMIN_EMAIL,
     };
-    const payload: IUser = {
+    const payload: IAdmin = {
       name: "Admin",
       email: envVars.ADMIN_EMAIL,
       password: hashPassword,
-      role: Role.ADMIN,
+      role:Role.ADMIN,
       isVerified: true,
       auths: [authProvider],
     };
 
-    const admin = await User.create(payload);
+    const admin = await Admin.create(payload);
     console.log("Admin Successfully Created", admin);
   } catch (error) {
     console.log("Admin creation failed", error);

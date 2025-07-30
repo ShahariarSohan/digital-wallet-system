@@ -6,6 +6,8 @@ import { User } from "../modules/user/user.model"
 import { Agent } from "../modules/agent/agent.model"
 import AppError from "../errorHelpers/appError"
 import { generateToken } from './generateToken';
+import { Admin } from '../modules/admin/admin.model';
+
 
 export const createNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
     const verifiedRefreshToken = verifyToken(refreshToken , envVars.JWT_REFRESH_SECRET ) as JwtPayload
@@ -13,6 +15,9 @@ export const createNewAccessTokenWithRefreshToken = async (refreshToken: string)
     
     if (!isAccountExist) {
         isAccountExist=await Agent.findOne({email:verifiedRefreshToken.email})
+    }
+    if (!isAccountExist) {
+        isAccountExist=await Admin.findOne({email:verifiedRefreshToken.email})
     }
 
     if (!isAccountExist) {

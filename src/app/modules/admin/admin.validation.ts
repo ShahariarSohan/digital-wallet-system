@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { Status } from "../../interfaces/interface";
 
-export const createAgentZodSchema = z.object({
+export const createAdminZodSchema = z.object({
   name: z
     .string({ error: "Name must be string" })
     .min(5, { message: "Name must be  at least 5 characters" })
@@ -27,11 +26,9 @@ export const createAgentZodSchema = z.object({
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
     })
     .optional(),
-  wallet: z.string().optional(),
-  commission: z.number().min(0).optional(),
 });
 
-export const updateAgentZodSchema = z.object({
+export const updateAdminZodSchema = z.object({
   name: z
     .string({ error: "Name must be string" })
     .min(5, { message: "Name must be  at least 5 characters" })
@@ -48,7 +45,6 @@ export const updateAgentZodSchema = z.object({
       message: `Password must be at least 1 special character`,
     })
     .optional(),
-  status: z.enum(Object.values(Status) as [string]).optional(),
   isActive: z.boolean({ error: "isActive must be true or false" }).optional(),
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
   isVerified: z
@@ -61,5 +57,4 @@ export const updateAgentZodSchema = z.object({
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
     })
     .optional(),
-  commission: z.number().min(0).optional(),
 });

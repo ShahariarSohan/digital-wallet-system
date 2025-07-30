@@ -11,7 +11,7 @@ const credentialsLogin = catchAsync(async(req: Request, res: Response, next: Nex
       sendResponse(res, {
         statusCode: httpStatus.ACCEPTED,
         success: true,
-        message: "User successfully Logged In",
+        message: "Successfully Logged In",
         data: result,
       });
 })
@@ -30,7 +30,7 @@ const logout = catchAsync(async(req: Request, res: Response, next: NextFunction)
       sendResponse(res, {
         statusCode: httpStatus.ACCEPTED,
         success: true,
-        message: "User successfully Logged Out",
+        message: "Successfully Logged Out",
         data: null,
       });
 })

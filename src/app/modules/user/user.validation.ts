@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Role } from "../../interfaces/interface";
+
 
 export const createUserZodSchema = z.object({
   name: z
@@ -47,7 +47,6 @@ export const updateUserZodSchema = z.object({
       message: `Password must be at least 1 special character`,
     })
     .optional(),
-  role: z.enum(Object.values(Role) as [string]).optional(),
   isActive: z.boolean({ error: "isActive must be true or false" }).optional(),
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
   isVerified: z

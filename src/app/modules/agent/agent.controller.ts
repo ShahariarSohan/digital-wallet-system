@@ -12,7 +12,7 @@ const createAgent = async (req: Request, res: Response, next: NextFunction) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "User successfully created",
+    message: "Agent successfully created",
     data: agent,
   });
 };

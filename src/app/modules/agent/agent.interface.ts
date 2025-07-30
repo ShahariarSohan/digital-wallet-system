@@ -7,7 +7,7 @@ export interface IAgent {
   email: string;
   password: string;
   phone?: string;
-  role?: Role;
+  role?: Role.AGENT;
   auths: IAuthProvider[];
   status?: Status;
   isActive?: boolean;

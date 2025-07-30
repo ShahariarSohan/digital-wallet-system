@@ -1,16 +1,15 @@
-import { Types } from "mongoose";
+
 import { IAuthProvider, Role } from "../../interfaces/interface";
 
-export interface IUser {
+export interface IAdmin {
   _id?: string;
   name: string;
   email: string;
   password: string;
   phone?: string;
-  role?: Role.USER;
+  role?: Role.ADMIN;
   auths: IAuthProvider[];
   isActive?: boolean;
   isDeleted?: boolean;
   isVerified?: boolean;
-  wallet?: Types.ObjectId;
 }

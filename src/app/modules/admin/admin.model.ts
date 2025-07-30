@@ -1,26 +1,23 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "./user.interface";
+
 import { Role } from "../../interfaces/interface";
 import { authProviderSchema } from "../../schema/authProviderSchema";
+import { IAdmin } from "./admin.interface";
 
 
-const userSchema = new Schema<IUser>(
+const adminSchema = new Schema<IAdmin>(
   {
     name: { type: String, required: true },
-    phone: { type: String},
+    phone: { type: String },
     email: { type: String, required: true, unique: true },
-    password:{type:String,required:true},
-    role: { type: String,  default: Role.USER },
+    password: { type: String, required: true },
+    role: { type: String, default: Role.ADMIN },
     auths: { type: [authProviderSchema] },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: true },
-    wallet: {
-      type: Schema.Types.ObjectId,
-      ref: "Wallet",
-    },
   },
   { timestamps: true, versionKey: false }
 );
 
-export const User = model<IUser>("User", userSchema);
+export const Admin = model<IAdmin>("Admin", adminSchema);
