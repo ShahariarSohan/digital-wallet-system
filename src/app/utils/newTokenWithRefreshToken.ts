@@ -9,28 +9,28 @@ import { generateToken } from './generateToken';
 
 export const createNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
     const verifiedRefreshToken = verifyToken(refreshToken , envVars.JWT_REFRESH_SECRET ) as JwtPayload
-    let account = await User.findOne({ email: verifiedRefreshToken.email })
+    let isAccountExist = await User.findOne({ email: verifiedRefreshToken.email })
     
-    if (!account) {
-        account=await Agent.findOne({email:verifiedRefreshToken.email})
+    if (!isAccountExist) {
+        isAccountExist=await Agent.findOne({email:verifiedRefreshToken.email})
     }
 
-    if (!account) {
+    if (!isAccountExist) {
         throw new AppError(httpStatus.NOT_FOUND,"Account is not found")
     }
-    if (!account.isVerified) {
+    if (!isAccountExist.isVerified) {
         throw new AppError(httpStatus.BAD_REQUEST,"Account is not verified")
     }
-    if (!account.isActive) {
+    if (!isAccountExist.isActive) {
         throw new AppError(httpStatus.BAD_REQUEST,"Account is not active")
     }
-    if (account.isDeleted) {
+    if (isAccountExist.isDeleted) {
         throw new AppError(httpStatus.BAD_REQUEST,"Account is deleted")
     }
     const jwtPayload = {
-        id:account._id,
-        email: account.email,
-        role:account.role,
+        id:isAccountExist._id,
+        email: isAccountExist.email,
+        role:isAccountExist.role,
     }
     const accessToken=generateToken(jwtPayload,envVars.JWT_ACCESS_SECRET,envVars.JWT_ACCESS_EXPIRES)
     return {

@@ -12,3 +12,8 @@ export interface IAuthProvider {
   provider: "google" | "credentials";
   providerId: string;
 }
+
+export interface ILogin{
+  email: string;
+  password: string;
+}
