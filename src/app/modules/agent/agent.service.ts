@@ -6,11 +6,11 @@ import { envVars } from "../../config/env";
 import { IAgent } from "./agent.interface";
 import { Agent } from "./agent.model";
 
-const createAgent = async (payload: IAgent
-) => {
+const createAgent = async (payload: IAgent) => {
   const session = await Agent.startSession();
-  session.startTransaction();
+
   try {
+    session.startTransaction();
     const isAgentExist = await Agent.findOne({ email: payload.email });
     if (isAgentExist) {
       throw new AppError(httpStatus.BAD_REQUEST, "Agent Already Exist");
@@ -33,12 +33,12 @@ const createAgent = async (payload: IAgent
       { new: true, runValidators: true, session }
     );
     await session.commitTransaction();
-    session.endSession();
     return agentWithWalletId;
   } catch (error) {
     await session.abortTransaction();
-    session.endSession();
     throw error;
+  } finally {
+    session.endSession();
   }
 };
 

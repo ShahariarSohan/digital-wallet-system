@@ -29,7 +29,7 @@ export const createAgentZodSchema = z.object({
     }),
 
   wallet: z.string().optional(),
-  commission: z.number().min(0).optional(),
+ 
 });
 
 export const updateAgentZodSchema = z.object({

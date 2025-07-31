@@ -26,8 +26,9 @@ const transactionSchema = new Schema<ITransaction>(
       type: String,
       enum: Object.values(TransactionStatus),
       default: TransactionStatus.PENDING,
-        },
-    transactionFee:{type:Number,default:10}
+    },
+    transactionFee: { type: Number },
+    commission: { type: Number },
   },
   { timestamps: true, versionKey: false }
 );

@@ -40,9 +40,36 @@ const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
     data: result,
   });
 };
+const cashIn = async (req: Request, res: Response, next: NextFunction) => {
+  const agent = req.user as JwtPayload;
+    const amount = req.body.amount;
+    const userId = req.body.userId;
+  const result = await walletServices.cashIn(agent.id, userId,amount);
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: "CashIn successfully ",
+    data: result,
+  });
+};
+const cashOut = async (req: Request, res: Response, next: NextFunction) => {
+  const agent = req.user as JwtPayload;
+    const amount = req.body.amount;
+    const userId = req.body.userId;
+  const result = await walletServices.cashOut(agent.id, userId,amount);
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: "CashOut successfully ",
+    data: result,
+  });
+};
 
 export const walletControllers = {
   deposit,
   withdraw,
-  sendMoney,
+    sendMoney,
+    cashIn,
+    cashOut,
+
 };

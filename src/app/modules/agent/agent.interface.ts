@@ -18,5 +18,5 @@ export interface IAgent {
   isDeleted?: boolean;
   isVerified?: boolean;
   wallet?: Types.ObjectId;
-  commission?: number;
+  
 }

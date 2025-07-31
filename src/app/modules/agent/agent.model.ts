@@ -23,7 +23,6 @@ const agentSchema = new Schema<IAgent>(
       type: Schema.Types.ObjectId,
       ref: "Wallet",
     },
-    commission: { type: Number },
   },
   { timestamps: true, versionKey: false }
 );

@@ -12,4 +12,5 @@ export const createTransactionSchema = z.object({
   status: z
     .enum(Object.values(TransactionStatus) as [string])
     .default(TransactionStatus.PENDING),
+  commission: z.number().min(0).optional(),
 });

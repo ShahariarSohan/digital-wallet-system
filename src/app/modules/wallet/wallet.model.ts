@@ -11,6 +11,7 @@ const walletSchema = new Schema<IWallet>(
     balance: { type: Number, default: 50 },
     currency: { type: String, default: "BDT" },
     isLocked: { type: Boolean, default: false },
+    
   },
   { timestamps: true, versionKey: false }
 );

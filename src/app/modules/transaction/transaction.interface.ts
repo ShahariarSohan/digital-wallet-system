@@ -24,4 +24,5 @@ export interface ITransaction {
   method: TransactionMethod;
   status: TransactionStatus;
   transactionFee?: number;
+  commission?: number;
 }
