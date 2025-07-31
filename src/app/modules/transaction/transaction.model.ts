@@ -22,7 +22,6 @@ const transactionSchema = new Schema<ITransaction>(
       enum: Object.values(TransactionMethod),
       default: TransactionMethod.WALLET,
     },
-
     status: {
       type: String,
       enum: Object.values(TransactionStatus),

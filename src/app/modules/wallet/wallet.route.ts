@@ -3,7 +3,7 @@ import { Router } from "express";
 import { checkAuth } from "../../middlewares/checkAuth";
 import { Role } from "../../interfaces/interface";
 import { walletControllers } from "./wallet.controller";
-import { amountSchema } from './wallet.validation';
+import { amountSchema, sendMoneySchema } from './wallet.validation';
 
 
 
@@ -17,6 +17,12 @@ router.post(
   checkAuth(Role.USER),
   validateRequest(amountSchema),
   walletControllers.withdraw
+);
+router.post(
+  "/sendMoney",
+  checkAuth(Role.USER),
+  validateRequest(sendMoneySchema),
+  walletControllers.sendMoney
 );
 
 export const walletRoutes = router;

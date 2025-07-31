@@ -20,3 +20,13 @@ export const amountSchema = z.object({
     .min(50, "Amount must be at least 50")
     .max(1_000_000, "Amount too large"),
 });
+export const sendMoneySchema = z.object({
+  amount: z
+    .number({
+      error: "Amount must be a number",
+    })
+    .min(50, "Amount must be at least 50")
+    .max(1_000_000, "Amount too large"),
+  receiverId:z.string({error:"receiverId must be string"})
+});
+

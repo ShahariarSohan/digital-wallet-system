@@ -1,7 +1,7 @@
 export enum TransactionType {
   DEPOSIT = "deposit",
   WITHDRAW = "withdraw",
-  TRANSFER = "transfer",
+  SEND_MONEY = "send_money",
   CASH_IN = "cash_in",
   CASH_OUT = "cash_out",
 }
