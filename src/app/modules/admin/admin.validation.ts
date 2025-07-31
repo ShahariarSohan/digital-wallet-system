@@ -20,12 +20,11 @@ export const createAdminZodSchema = z.object({
       message: `Password must be at least 1 special character`,
     }),
   phone: z
-    .string({ error: "Phone must be string" })
+    .string({ error: " Phone must be string" })
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
       message:
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
     })
-    .optional(),
 });
 
 export const updateAdminZodSchema = z.object({
@@ -49,12 +48,5 @@ export const updateAdminZodSchema = z.object({
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
   isVerified: z
     .boolean({ error: "isVerified must be true or false" })
-    .optional(),
-  phone: z
-    .string({ error: " Phone must be string" })
-    .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
-      message:
-        "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
-    })
     .optional(),
 });

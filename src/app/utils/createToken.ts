@@ -7,6 +7,7 @@ export const createUserToken = (user: Partial<IUser | IAgent>) => {
   const jwtPayload = {
     id: user._id,
     email: user.email,
+    phone:user.phone,
     role: user.role,
   };
   const accessToken = generateToken(

@@ -13,6 +13,7 @@ interface EnvConfig {
   ADMIN_EMAIL: string;
   ADMIN_PASS: string;
   EXPRESS_SESSION_SECRET: string;
+  ADMIN_PHONE: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -27,7 +28,9 @@ const loadEnvVariables = (): EnvConfig => {
     "BCRYPT_SALT_ROUND",
     "ADMIN_EMAIL",
     "ADMIN_PASS",
+    "ADMIN_PHONE",
     "EXPRESS_SESSION_SECRET",
+  
   ];
   requiredVariables.forEach((key) => {
     if (!process.env[key]) {
@@ -45,6 +48,7 @@ const loadEnvVariables = (): EnvConfig => {
     BCRYPT_SALT_ROUND: process.env.BCRYPT_SALT_ROUND as string,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
     ADMIN_PASS: process.env.ADMIN_PASS as string,
+    ADMIN_PHONE: process.env.ADMIN_PHONE as string,
     EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
   };
 };

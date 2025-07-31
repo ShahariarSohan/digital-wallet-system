@@ -22,7 +22,7 @@ const credentialsLogin = async (res:Response ,payload:ILogin) => {
     if (!isAccountExist) {
         throw new AppError(httpStatus.NOT_FOUND,"Account doesn't exist")
     }
-    const isPasswordMatched = bcryptComparePassword(payload.password, isAccountExist.password)
+    const isPasswordMatched =await bcryptComparePassword(payload.password, isAccountExist.password)
     if (!isPasswordMatched) {
         throw new AppError(httpStatus.NOT_FOUND,"Wrong Password")
     }

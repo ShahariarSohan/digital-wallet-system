@@ -8,7 +8,7 @@ import { IAdmin } from "./admin.interface";
 const adminSchema = new Schema<IAdmin>(
   {
     name: { type: String, required: true },
-    phone: { type: String },
+    phone: { type: String ,required:true,unique:true},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, default: Role.ADMIN },

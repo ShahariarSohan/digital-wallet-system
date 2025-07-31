@@ -1,34 +1,29 @@
-import  httpStatus  from 'http-status-codes';
+import httpStatus from "http-status-codes";
 import AppError from "../../errorHelpers/appError";
 
-
-import { bcryptHashPassword } from '../../utils/hashPassword';
-import { envVars } from '../../config/env';
-import { IAdmin } from './admin.interface';
-import { Admin } from './admin.model';
+import { bcryptHashPassword } from "../../utils/hashPassword";
+import { envVars } from "../../config/env";
+import { IAdmin } from "./admin.interface";
+import { Admin } from "./admin.model";
 
 const createAdmin = async (payload: IAdmin) => {
-    const isAdminExist = await Admin.findOne({ email: payload.email })
-    console.log("from services",payload)
-    if (isAdminExist) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Admin Already Exist");
-    }
- const {password,...rest}=payload
-    const hashPassword = await bcryptHashPassword(
-      password,
-      envVars.BCRYPT_SALT_ROUND
+  const isAdminExist = await Admin.findOne({ email: payload.email });
+  if (isAdminExist) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Admin Already Exist");
+  }
+  const { password } = payload;
+  const hashPassword = await bcryptHashPassword(
+    password,
+    envVars.BCRYPT_SALT_ROUND
   );
   const payloadWithHashPassword = {
-    ...rest,
-    password:hashPassword
-  }
-  const admin = await Admin.create(payloadWithHashPassword)
-    return admin;
-
-}
-
-
+    ...payload,
+    password: hashPassword,
+  };
+  const admin = await Admin.create(payloadWithHashPassword);
+  return admin;
+};
 
 export const adminServices = {
-    createAdmin
-}
+  createAdmin,
+};

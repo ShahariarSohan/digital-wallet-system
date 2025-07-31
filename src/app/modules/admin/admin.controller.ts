@@ -7,7 +7,6 @@ import { adminServices } from './admin.service';
 
 const createAdmin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("from controller", req.body);
     const result = await adminServices.createAdmin(req.body);
     
     sendResponse(res, {

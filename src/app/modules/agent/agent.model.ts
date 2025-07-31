@@ -1,20 +1,20 @@
 import { model, Schema } from "mongoose";
-import { Role, Status } from "../../interfaces/interface";
+import { Role } from "../../interfaces/interface";
 import { authProviderSchema } from "../../schema/authProviderSchema";
-import { IAgent } from "./agent.interface";
+import { ApprovalStatus, IAgent } from "./agent.interface";
 
 const agentSchema = new Schema<IAgent>(
   {
     name: { type: String, required: true },
-    phone: { type: String },
+    phone: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, default: Role.AGENT },
     auths: { type: [authProviderSchema] },
-    status: {
+    approvalStatus: {
       type: String,
-      enum: Object.values(Status),
-      default: Status.PENDING,
+      enum: Object.values(ApprovalStatus),
+      default: ApprovalStatus.PENDING,
     },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },

@@ -20,7 +20,7 @@ const createUser = async (payload: IUser) => {
     const user = await User.create([{...rest,password:hashPassword}], { session });
 
     const wallet = await Wallet.create([{ user: user[0]._id }], { session });
-
+  
     const userWithWalletId = await User.findByIdAndUpdate(
       user[0]._id,
       { wallet: wallet[0]._id },

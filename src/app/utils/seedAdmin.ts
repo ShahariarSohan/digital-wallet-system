@@ -26,6 +26,7 @@ export const seedAdmin = async () => {
       name: "Admin",
       email: envVars.ADMIN_EMAIL,
       password: hashPassword,
+      phone:envVars.ADMIN_PHONE,
       role:Role.ADMIN,
       isVerified: true,
       auths: [authProvider],

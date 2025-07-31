@@ -25,8 +25,7 @@ export const createUserZodSchema = z.object({
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
       message:
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
-    })
-    .optional(),
+    }),
   wallet: z.string().optional(),
 });
 
@@ -51,12 +50,5 @@ export const updateUserZodSchema = z.object({
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
   isVerified: z
     .boolean({ error: "isVerified must be true or false" })
-    .optional(),
-  phone: z
-    .string({ error: " Phone must be string" })
-    .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
-      message:
-        "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
-    })
     .optional(),
 });

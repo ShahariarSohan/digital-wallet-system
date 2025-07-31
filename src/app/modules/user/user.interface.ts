@@ -6,7 +6,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  phone?: string;
+  phone: string;
   role?: Role.USER;
   auths: IAuthProvider[];
   isActive?: boolean;
