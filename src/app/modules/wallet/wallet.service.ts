@@ -8,6 +8,8 @@ import {
   TransactionStatus,
   TransactionType,
 } from "../transaction/transaction.interface";
+import { Agent } from "../agent/agent.model";
+import { ApprovalStatus } from "../agent/agent.interface";
 
 const transactionPercentage = 0.01;
 const commissionPercentage = 0.02;
@@ -167,7 +169,18 @@ const cashIn = async (agentId: string, userId: string, amount: number) => {
 
   try {
     session.startTransaction();
-    const isAgentWalletExist = await Wallet.findOne({ user: agentId });
+
+    const isAgentExist = await Agent.findById(agentId)
+    if (!isAgentExist) {
+      throw new AppError(httpStatus.NOT_FOUND, " Agent  not found");
+    }
+    if (
+      isAgentExist.approvalStatus === ApprovalStatus.PENDING ||
+      isAgentExist.approvalStatus === ApprovalStatus.SUSPENDED
+    ) {
+      throw new AppError(httpStatus.BAD_REQUEST,`Agent Approval is ${isAgentExist.approvalStatus}`)
+    }
+      const isAgentWalletExist = await Wallet.findOne({ user: agentId });
     if (!isAgentWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");
     }
@@ -224,6 +237,20 @@ const cashOut = async (agentId: string, userId: string, amount: number) => {
 
   try {
     session.startTransaction();
+
+     const isAgentExist = await Agent.findById(agentId);
+     if (!isAgentExist) {
+       throw new AppError(httpStatus.NOT_FOUND, " Agent  not found");
+     }
+     if (
+       isAgentExist.approvalStatus === ApprovalStatus.PENDING ||
+       isAgentExist.approvalStatus === ApprovalStatus.SUSPENDED
+     ) {
+       throw new AppError(
+         httpStatus.BAD_REQUEST,
+         `Agent Approval is ${isAgentExist.approvalStatus}`
+       );
+     }
     const isAgentWalletExist = await Wallet.findOne({ user: agentId });
     if (!isAgentWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");
