@@ -8,7 +8,7 @@ import { User } from "../modules/user/user.model";
 import { Agent } from "../modules/agent/agent.model";
 import { Admin } from "../modules/admin/admin.model";
 
-export const checkAuth = (authRole: string) => async (req: Request, res: Response, next: NextFunction) => {
+export const checkAuth = (...authRole: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     try {
         const accessToken = req.headers.authorization;
         if (!accessToken) {
@@ -38,7 +38,7 @@ export const checkAuth = (authRole: string) => async (req: Request, res: Respons
          if (isAccountExist.isDeleted) {
            throw new AppError(httpStatus.BAD_REQUEST, "Account is deleted");
         }
-        if (authRole!==verifiedToken.role) {
+        if (!authRole.includes(verifiedToken.role)) {
             throw new AppError(httpStatus.BAD_REQUEST,"You are not permitted");
         }
       req.user = verifiedToken;

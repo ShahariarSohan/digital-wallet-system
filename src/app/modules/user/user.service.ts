@@ -5,6 +5,10 @@ import { IUser } from "./user.interface";
 import { Wallet } from "../wallet/wallet.model";
 import { bcryptHashPassword } from "../../utils/hashPassword";
 import { envVars } from "../../config/env";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { userSearchAbleFields } from "./user.constant";
+import { JwtPayload } from "jsonwebtoken";
+import { Role } from "../../interfaces/interface";
 
 const createUser = async (payload: IUser) => {
   const session = await User.startSession();
@@ -39,7 +43,59 @@ const createUser = async (payload: IUser) => {
     session.endSession();
   }
 };
-
+const getAllUser = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(User.find(), query);
+  const users =await queryBuilder
+    .search(userSearchAbleFields)
+    .filter()
+    .sort()
+    .fields()
+    .paginate()
+    .build();
+  const meta = await queryBuilder.getMeta();
+  return {
+    data: users,
+    meta:meta
+  }
+};
+const getMe = async (userId: string) => {
+   const isUserExist = await User.findById(userId);
+   if (!isUserExist) {
+     throw new AppError(httpStatus.NOT_FOUND, "No user found");
+  }
+  return isUserExist;
+}
+const getSingleUser = async (userId: string) => {
+  const isUserExist = await User.findById(userId);
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "No user found");
+  }
+  return isUserExist;
+};
+const updateUser = async (payload: Partial<IUser>, userId: string, decodedToken: JwtPayload) => {
+  
+  if ((userId !== decodedToken.id) && (decodedToken.role===Role.USER )) {
+    throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
+  }
+  const isUserExist = await User.findById(userId)
+  if (!isUserExist) {
+    throw new AppError(httpStatus.NOT_FOUND,"No user found")
+  }
+  if (payload.phone || payload.role || payload.isActive || payload.isDeleted || payload.isVerified || payload.email) {
+    if (decodedToken.role === Role.USER) {
+      throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
+    }
+  }
+  if (payload.password) {
+    payload.password=await bcryptHashPassword(payload.password,envVars.BCRYPT_SALT_ROUND)
+  }
+  const newUpdatedUser=await User.findByIdAndUpdate(userId,payload,{new:true,runValidators:true})
+  return newUpdatedUser;
+}
 export const userServices = {
   createUser,
+  getAllUser,
+  updateUser,
+  getMe,
+  getSingleUser
 };

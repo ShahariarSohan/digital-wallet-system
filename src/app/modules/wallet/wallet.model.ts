@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IWallet } from "./wallet.interface";
+import { IWallet, lockStatus } from "./wallet.interface";
 
 const walletSchema = new Schema<IWallet>(
   {
@@ -10,7 +10,11 @@ const walletSchema = new Schema<IWallet>(
     },
     balance: { type: Number, default: 50 },
     currency: { type: String, default: "BDT" },
-    isLocked: { type: Boolean, default: false },
+    lockStatus: {
+          type: String,
+          enum: Object.values(lockStatus),
+          default: lockStatus.UNLOCKED,
+        },
     
   },
   { timestamps: true, versionKey: false }

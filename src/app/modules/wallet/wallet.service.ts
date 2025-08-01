@@ -1,4 +1,3 @@
-
 import httpStatus from "http-status-codes";
 
 import AppError from "../../errorHelpers/appError";
@@ -10,11 +9,14 @@ import {
 } from "../transaction/transaction.interface";
 import { Agent } from "../agent/agent.model";
 import { ApprovalStatus } from "../agent/agent.interface";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { walletSearchAbleFields } from "./wallet.constant";
+import { IWallet, lockStatus } from "./wallet.interface";
 
 const transactionPercentage = 0.01;
 const commissionPercentage = 0.02;
 const deposit = async (userId: string, amount: number) => {
-     const transactionFee = amount * transactionPercentage;
+  const transactionFee = amount * transactionPercentage;
   const depositAmount = amount - transactionFee;
   const session = await Wallet.startSession();
 
@@ -24,7 +26,7 @@ const deposit = async (userId: string, amount: number) => {
     if (!isWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "No wallet found");
     }
-    if (isWalletExist.isLocked) {
+    if (isWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Wallet is Locked");
     }
     await Wallet.updateOne(
@@ -57,7 +59,7 @@ const deposit = async (userId: string, amount: number) => {
   }
 };
 const withdraw = async (userId: string, amount: number) => {
-     const transactionFee = amount * transactionPercentage;
+  const transactionFee = amount * transactionPercentage;
   const withdrawAmount = amount + transactionFee;
   const session = await Wallet.startSession();
 
@@ -67,7 +69,7 @@ const withdraw = async (userId: string, amount: number) => {
     if (!isWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "No wallet found");
     }
-    if (isWalletExist.isLocked) {
+    if (isWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Wallet is Locked");
     }
     if (isWalletExist.balance < withdrawAmount) {
@@ -106,17 +108,23 @@ const sendMoney = async (
   receiverId: string,
   amount: number
 ) => {
-    const transactionFee=amount*transactionPercentage
+  const transactionFee = amount * transactionPercentage;
   const totalAmount = amount + transactionFee;
   const session = await Wallet.startSession();
 
   try {
     session.startTransaction();
+    if (senderId === receiverId) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "You can't send money to your own wallet"
+      );
+    }
     const isSenderWalletExist = await Wallet.findOne({ user: senderId });
     if (!isSenderWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "Sender wallet not found");
     }
-    if (isSenderWalletExist.isLocked) {
+    if (isSenderWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Sender Wallet is Locked");
     }
     if (isSenderWalletExist.balance < totalAmount) {
@@ -126,7 +134,7 @@ const sendMoney = async (
     if (!isReceiverWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "Receiver wallet not found");
     }
-    if (isReceiverWalletExist.isLocked) {
+    if (isReceiverWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Receiver Wallet is Locked");
     }
     await Wallet.updateOne(
@@ -170,7 +178,7 @@ const cashIn = async (agentId: string, userId: string, amount: number) => {
   try {
     session.startTransaction();
 
-    const isAgentExist = await Agent.findById(agentId)
+    const isAgentExist = await Agent.findById(agentId);
     if (!isAgentExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent  not found");
     }
@@ -178,13 +186,16 @@ const cashIn = async (agentId: string, userId: string, amount: number) => {
       isAgentExist.approvalStatus === ApprovalStatus.PENDING ||
       isAgentExist.approvalStatus === ApprovalStatus.SUSPENDED
     ) {
-      throw new AppError(httpStatus.BAD_REQUEST,`Agent Approval is ${isAgentExist.approvalStatus}`)
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        `Agent Approval is ${isAgentExist.approvalStatus}`
+      );
     }
-      const isAgentWalletExist = await Wallet.findOne({ user: agentId });
+    const isAgentWalletExist = await Wallet.findOne({ user: agentId });
     if (!isAgentWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");
     }
-    if (isAgentWalletExist.isLocked) {
+    if (isAgentWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Agent Wallet is Locked");
     }
     if (isAgentWalletExist.balance < amount) {
@@ -194,7 +205,7 @@ const cashIn = async (agentId: string, userId: string, amount: number) => {
     if (!isUserWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "User wallet not found");
     }
-    if (isUserWalletExist.isLocked) {
+    if (isUserWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "User Wallet is Locked");
     }
     await Wallet.updateOne(
@@ -238,38 +249,37 @@ const cashOut = async (agentId: string, userId: string, amount: number) => {
   try {
     session.startTransaction();
 
-     const isAgentExist = await Agent.findById(agentId);
-     if (!isAgentExist) {
-       throw new AppError(httpStatus.NOT_FOUND, " Agent  not found");
-     }
-     if (
-       isAgentExist.approvalStatus === ApprovalStatus.PENDING ||
-       isAgentExist.approvalStatus === ApprovalStatus.SUSPENDED
-     ) {
-       throw new AppError(
-         httpStatus.BAD_REQUEST,
-         `Agent Approval is ${isAgentExist.approvalStatus}`
-       );
-     }
+    const isAgentExist = await Agent.findById(agentId);
+    if (!isAgentExist) {
+      throw new AppError(httpStatus.NOT_FOUND, " Agent  not found");
+    }
+    if (
+      isAgentExist.approvalStatus === ApprovalStatus.PENDING ||
+      isAgentExist.approvalStatus === ApprovalStatus.SUSPENDED
+    ) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        `Agent Approval is ${isAgentExist.approvalStatus}`
+      );
+    }
     const isAgentWalletExist = await Wallet.findOne({ user: agentId });
     if (!isAgentWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");
     }
-    if (isAgentWalletExist.isLocked) {
+    if (isAgentWalletExist.lockStatus === lockStatus.LOCKED) {
       throw new AppError(httpStatus.BAD_REQUEST, "Agent Wallet is Locked");
-      }
-      const isUserWalletExist = await Wallet.findOne({ user: userId });
-       if (!isUserWalletExist) {
-         throw new AppError(httpStatus.NOT_FOUND, "User wallet not found");
-       }
-       if (isUserWalletExist.isLocked) {
-         throw new AppError(httpStatus.BAD_REQUEST, "User Wallet is Locked");
-       }
+    }
+    const isUserWalletExist = await Wallet.findOne({ user: userId });
+    if (!isUserWalletExist) {
+      throw new AppError(httpStatus.NOT_FOUND, "User wallet not found");
+    }
+    if (isUserWalletExist.lockStatus === lockStatus.LOCKED) {
+      throw new AppError(httpStatus.BAD_REQUEST, "User Wallet is Locked");
+    }
     if (isUserWalletExist.balance < amount) {
       throw new AppError(httpStatus.BAD_REQUEST, "Insufficient User Balance");
     }
-   
-   
+
     await Wallet.updateOne(
       { user: userId },
       { $inc: { balance: -amount } },
@@ -304,11 +314,50 @@ const cashOut = async (agentId: string, userId: string, amount: number) => {
     session.endSession();
   }
 };
+const getAllWallet = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(Wallet.find(), query);
+  const wallets = await queryBuilder
+    .search(walletSearchAbleFields)
+    .filter()
+    .sort()
+    .fields()
+    .paginate()
+    .build();
+  const meta = await queryBuilder.getMeta();
+  return {
+    data: wallets,
+    meta: meta,
+  };
+};
+const getMyWallet = async (id: string) => {
+  const isWalletExist = await Wallet.findOne({ user: id });
+  if (!isWalletExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "No Wallet found");
+  }
+  return isWalletExist;
+};
+const updateLockStatus = async (
+  payload: Partial<IWallet>,
+  walletId: string
+) => {
+  const isWalletExist = await Wallet.findById(walletId);
+  if (!isWalletExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "No Wallet found");
+  }
 
+  const updatedWallet = await Wallet.findByIdAndUpdate(walletId, payload, {
+    new: true,
+    runValidators: true,
+  });
+  return updatedWallet;
+};
 export const walletServices = {
   deposit,
   withdraw,
   sendMoney,
   cashIn,
   cashOut,
+  getAllWallet,
+  getMyWallet,
+  updateLockStatus,
 };

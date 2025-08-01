@@ -4,7 +4,7 @@ import { Router } from "express";
 import { checkAuth } from "../../middlewares/checkAuth";
 import { Role } from "../../interfaces/interface";
 import { walletControllers } from "./wallet.controller";
-import { agentUserTransactionSchema, amountSchema, sendMoneySchema } from './wallet.validation';
+import { agentUserTransactionSchema, amountSchema, lockActivitySchema, sendMoneySchema } from './wallet.validation';
 
 
 const router = Router()
@@ -34,5 +34,7 @@ router.post(
   validateRequest(agentUserTransactionSchema),
   walletControllers.cashOut
 );
-
+router.get("/",checkAuth(Role.ADMIN),walletControllers.getAllWallet)
+router.get("/myWallet", checkAuth(...Object.values(Role)), walletControllers.getMyWallet)
+router.patch("/lockStatus/:id",checkAuth(Role.ADMIN),validateRequest(lockActivitySchema),walletControllers.updateLockStatus)
 export const walletRoutes = router;

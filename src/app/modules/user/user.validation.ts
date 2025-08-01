@@ -21,7 +21,7 @@ export const createUserZodSchema = z.object({
       message: `Password must be at least 1 special character`,
     }),
   phone: z
-    .string({ error: "Phone must be string" })
+    .string({ error: "Phone required and it must be string and unique" })
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
       message:
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",

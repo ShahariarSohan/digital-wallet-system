@@ -13,7 +13,7 @@ export interface IAgent {
   phone: string;
   role?: Role.AGENT;
   auths: IAuthProvider[];
-  approvalStatus?: ApprovalStatus.PENDING;
+  approvalStatus?: ApprovalStatus;
   isActive?: boolean;
   isDeleted?: boolean;
   isVerified?: boolean;
