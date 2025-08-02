@@ -11,7 +11,7 @@ This a Digital Wallet System Server .It is a wallet system like bkash or nagad.I
 - Agent can cash in and cash out from any users wallet.
 - Admin has all the access.He can update all important status related to users and agents and can also see all operations and history etc.
 
-### Postman Api's link :
+### Postman  Api's link :
 
 [https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624](https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624) 
 
