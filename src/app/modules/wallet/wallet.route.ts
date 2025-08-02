@@ -17,7 +17,7 @@ router.post(
   walletControllers.withdraw
 );
 router.post(
-  "/sendMoney",
+  "/send",
   checkAuth(Role.USER),
   validateRequest(sendMoneySchema),
   walletControllers.sendMoney
@@ -35,6 +35,10 @@ router.post(
   walletControllers.cashOut
 );
 router.get("/",checkAuth(Role.ADMIN),walletControllers.getAllWallet)
-router.get("/myWallet", checkAuth(...Object.values(Role)), walletControllers.getMyWallet)
+router.get(
+  "/me",
+  checkAuth(Role.AGENT, Role.USER),
+  walletControllers.getMyWallet
+);
 router.patch("/lockStatus/:id",checkAuth(Role.ADMIN),validateRequest(lockActivitySchema),walletControllers.updateLockStatus)
 export const walletRoutes = router;

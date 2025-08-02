@@ -3,7 +3,7 @@ import AppError from "../../errorHelpers/appError";
 import { Wallet } from "../wallet/wallet.model";
 import { bcryptHashPassword } from "../../utils/hashPassword";
 import { envVars } from "../../config/env";
-import { IAgent } from "./agent.interface";
+import { ApprovalStatus, IAgent } from "./agent.interface";
 import { Agent } from "./agent.model";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { agentSearchAbleFields } from "./agent.constant";
@@ -99,6 +99,9 @@ const updateAgent = async (
       throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
     }
   }
+  if (isAgentExist.approvalStatus === payload.approvalStatus) {
+    throw new AppError(httpStatus.FORBIDDEN,`Agent existing approvalStatus is ${payload.approvalStatus} can't update to same status`)
+  }
   if (payload.password) {
     payload.password = await bcryptHashPassword(
       payload.password,
@@ -109,6 +112,14 @@ const updateAgent = async (
     new: true,
     runValidators: true,
   });
+  if (payload.approvalStatus === ApprovalStatus.APPROVED) {
+    const isWalletExist = await Wallet.findOne({ user: agentId })
+    if (!isWalletExist) {
+      throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");
+    }
+    await Wallet.findOneAndUpdate({ user: agentId }, { $inc:{ balance: 3000 } }, { new: true, runValidators: true })
+    await isWalletExist.save();
+  }
   return newUpdatedUser;
 };
 export const agentServices = {
