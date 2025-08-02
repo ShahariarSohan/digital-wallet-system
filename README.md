@@ -6,12 +6,20 @@ This a Digital Wallet System Server .It is a wallet system like bkash or nagad.I
 
 ### Core Features
 
-- When user and agent will register an account a wallet will create automatically.
-- User can deposit,withdraw and send money to other user wallet.
-- Agent can cash in and cash out from any users wallet
-- Admin has all access.He can update all important status related to users and agents and also see all operations and history etc.
+- When user and agent will register an account, a wallet will create automatically.
+- User can deposit,withdraw and send money to other users wallet.
+- Agent can cash in and cash out from any users wallet.
+- Admin has all the access.He can update all important status related to users and agents and can also see all operations and history etc.
 
+### Postman Api's link :
 
+[https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624](https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624) 
+
+#### Server live link given below:
+
+- [https://digital-wallet-system-red.vercel.app/](https://digital-wallet-system-red.vercel.app/)
+
+- Use this link to start server
 
 ### Setup locally:
 
@@ -27,15 +35,9 @@ This a Digital Wallet System Server .It is a wallet system like bkash or nagad.I
 - Cors
 - JWT
 - Bcrypt
-- cookie-parse 
+- cookie-parser 
 
 Some software you may not need to install but it is always safe to install all required softwares.
-
-#### Server link given below:
-
-- [https://digital-wallet-system-red.vercel.app/](https://digital-wallet-system-red.vercel.app/)
-
-- Use this link to start server
 
 #### Use command
 
