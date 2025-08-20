@@ -12,8 +12,12 @@ interface EnvConfig {
   BCRYPT_SALT_ROUND: string;
   ADMIN_EMAIL: string;
   ADMIN_PASS: string;
-  EXPRESS_SESSION_SECRET: string;
   ADMIN_PHONE: string;
+  GOOGLE_CLIENT_ID: string;
+  GOOGLE_CLIENT_SECRET: string;
+  GOOGLE_CALLBACK_URL: string;
+  EXPRESS_SESSION_SECRET: string;
+  FRONTEND_URL: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -29,8 +33,11 @@ const loadEnvVariables = (): EnvConfig => {
     "ADMIN_EMAIL",
     "ADMIN_PASS",
     "ADMIN_PHONE",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_CALLBACK_URL",
     "EXPRESS_SESSION_SECRET",
-  
+    "FRONTEND_URL",
   ];
   requiredVariables.forEach((key) => {
     if (!process.env[key]) {
@@ -49,7 +56,11 @@ const loadEnvVariables = (): EnvConfig => {
     ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
     ADMIN_PASS: process.env.ADMIN_PASS as string,
     ADMIN_PHONE: process.env.ADMIN_PHONE as string,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
+    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL as string,
     EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
+    FRONTEND_URL: process.env.FRONTEND_URL as string,
   };
 };
 

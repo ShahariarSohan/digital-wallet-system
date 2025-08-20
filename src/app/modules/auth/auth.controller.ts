@@ -4,6 +4,10 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from '../../utils/sendResponse';
 import { authServices } from './auth.service';
+import AppError from '../../errorHelpers/appError';
+import { createUserToken } from '../../utils/createToken';
+import { setAuthCookie } from '../../utils/setCookie';
+import { envVars } from '../../config/env';
 
 const credentialsLogin = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
     
@@ -34,8 +38,24 @@ const logout = catchAsync(async(req: Request, res: Response, next: NextFunction)
         data: null,
       });
 })
-
+const googleCallbackController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    let redirectTo = req.query.state ? (req.query.state as string) : ""
+    if (redirectTo.startsWith("/")) {
+      redirectTo = redirectTo.slice(1)
+    }
+    const user = req.user
+    if (!user) {
+      throw new AppError(404, "User not found")
+    }
+    const tokenInfo = createUserToken(user)
+    setAuthCookie(res, tokenInfo);
+    res.redirect(`${envVars.FRONTEND_URL}/${redirectTo}`);
+  }
+  
+);
 export const authControllers = {
   credentialsLogin,
+  googleCallbackController,
   logout
 }
