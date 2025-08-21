@@ -6,9 +6,10 @@ import { ApprovalStatus, IAgent } from "./agent.interface";
 const agentSchema = new Schema<IAgent>(
   {
     name: { type: String, required: true },
-    phone: { type: String, required: true, unique: true },
+    phone: { type: String},
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
+    picture:{type:String},
     role: { type: String, default: Role.AGENT },
     auths: { type: [authProviderSchema] },
     approvalStatus: {

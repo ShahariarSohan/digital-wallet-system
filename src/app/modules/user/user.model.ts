@@ -7,14 +7,15 @@ import { authProviderSchema } from "../../schema/authProviderSchema";
 const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
-    phone: { type: String, required: true, unique: true },
+    phone: { type: String},
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
+    picture:{type:String},
     role: { type: String, default: Role.USER },
     auths: { type: [authProviderSchema] },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    isVerified: { type: Boolean, default: true },
+    isVerified: { type: Boolean, default:true },
     wallet: {
       type: Schema.Types.ObjectId,
       ref: "Wallet",

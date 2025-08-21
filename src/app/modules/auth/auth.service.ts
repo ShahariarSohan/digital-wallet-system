@@ -22,7 +22,20 @@ const credentialsLogin = async (res:Response ,payload:ILogin) => {
     if (!isAccountExist) {
         throw new AppError(httpStatus.NOT_FOUND,"Account doesn't exist")
     }
-    const isPasswordMatched =await bcryptComparePassword(payload.password, isAccountExist.password)
+    if (!isAccountExist.isVerified) {
+         throw new AppError(httpStatus.BAD_REQUEST, "Account is not verified");
+    }
+    if (!isAccountExist.isActive) {
+         throw new AppError(httpStatus.BAD_REQUEST, "Account is not active");
+    }
+    if (isAccountExist.isDeleted) {
+         throw new AppError(httpStatus.BAD_REQUEST, "Account is deleted");
+    }
+    const googleAuthenticated=isAccountExist.auths.some((providerObject)=>providerObject.provider==="google")
+    if (googleAuthenticated && !isAccountExist.password) {
+        return "You already logged in with google,so first you have to login with google then you can set password"
+    }
+    const isPasswordMatched =await bcryptComparePassword(payload.password, isAccountExist.password as string)
     if (!isPasswordMatched) {
         throw new AppError(httpStatus.NOT_FOUND,"Wrong Password")
     }

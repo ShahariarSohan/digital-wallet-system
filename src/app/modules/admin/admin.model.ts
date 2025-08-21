@@ -8,14 +8,15 @@ import { IAdmin } from "./admin.interface";
 const adminSchema = new Schema<IAdmin>(
   {
     name: { type: String, required: true },
-    phone: { type: String ,required:true,unique:true},
+    phone: { type: String },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
+    picture:{type:String},
     role: { type: String, default: Role.ADMIN },
     auths: { type: [authProviderSchema] },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    isVerified: { type: Boolean, default: true },
+    isVerified: { type: Boolean, default: true},
   },
   { timestamps: true, versionKey: false }
 );

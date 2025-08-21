@@ -10,7 +10,7 @@ import { Admin } from "../modules/admin/admin.model";
 
 export const checkAuth = (...authRole: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const accessToken = req.headers.authorization;
+      const accessToken = req.headers.authorization || req.cookies.accessToken;
         if (!accessToken) {
             throw new AppError(403,"No tokens received")
         }

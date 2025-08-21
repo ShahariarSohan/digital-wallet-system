@@ -5,6 +5,8 @@ import sendResponse from "../../utils/sendResponse";
 import { JwtPayload } from "jsonwebtoken";
 import { walletServices } from "./wallet.service";
 import catchAsync from "../../utils/catchAsync";
+import { User } from "../user/user.model";
+import AppError from "../../errorHelpers/appError";
 
 const deposit = async (req: Request, res: Response, next: NextFunction) => {
   const decodedToken = req.user as JwtPayload;
@@ -32,7 +34,15 @@ const withdraw = async (req: Request, res: Response, next: NextFunction) => {
 const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
   const sender = req.user as JwtPayload;
   const amount = req.body.amount;
-  const receiverId = req.body.receiverId;
+  const receiverEmail = req.body.receiverEmail;
+  const isUserExist = await User.findOne({ email: receiverEmail })
+  if (!isUserExist) {
+     throw new AppError(
+       httpStatus.NOT_FOUND ,
+       "No Email exist"
+     );
+  }
+  const receiverId=isUserExist._id
   const result = await walletServices.sendMoney(sender.id, receiverId, amount);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -44,7 +54,12 @@ const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
 const cashIn = async (req: Request, res: Response, next: NextFunction) => {
   const agent = req.user as JwtPayload;
   const amount = req.body.amount;
-  const userId = req.body.userId;
+   const userEmail = req.body.userEmail;
+   const isUserExist = await User.findOne({ email: userEmail });
+   if (!isUserExist) {
+     throw new AppError(httpStatus.NOT_FOUND, "No Email exist");
+   }
+   const userId = isUserExist._id;
   const result = await walletServices.cashIn(agent.id, userId, amount);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -56,7 +71,13 @@ const cashIn = async (req: Request, res: Response, next: NextFunction) => {
 const cashOut = async (req: Request, res: Response, next: NextFunction) => {
   const agent = req.user as JwtPayload;
   const amount = req.body.amount;
-  const userId = req.body.userId;
+   const userEmail = req.body.userEmail;
+   const isUserExist = await User.findOne({ email: userEmail });
+   if (!isUserExist) {
+     throw new AppError(httpStatus.NOT_FOUND, "No Email exist");
+   }
+   const userId = isUserExist._id;
+ 
   const result = await walletServices.cashOut(agent.id, userId, amount);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,

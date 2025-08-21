@@ -44,9 +44,7 @@ passport.use(
             name: profile.displayName,
             picture: profile.photos?.[0].value,
             role: Role.USER,
-            isVerified: true,
-            phone: "01622113579",
-            password:"vorkor@N!1",
+            isVerified:false,
             auths: [
               {
                 provider: "google",

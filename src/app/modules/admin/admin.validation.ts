@@ -24,7 +24,7 @@ export const createAdminZodSchema = z.object({
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
       message:
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
-    }),
+    }).optional(),
 });
 
 export const updateAdminZodSchema = z.object({

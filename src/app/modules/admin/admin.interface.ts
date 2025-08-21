@@ -5,8 +5,9 @@ export interface IAdmin {
   _id?: string;
   name: string;
   email: string;
-  password: string;
-  phone: string;
+  password?: string;
+  picture?: string;
+  phone?: string;
   role?: Role.ADMIN;
   auths: IAuthProvider[];
   isActive?: boolean;

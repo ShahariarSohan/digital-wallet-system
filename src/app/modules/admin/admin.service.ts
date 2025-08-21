@@ -13,7 +13,7 @@ const createAdmin = async (payload: IAdmin) => {
   }
   const { password } = payload;
   const hashPassword = await bcryptHashPassword(
-    password,
+    password as string,
     envVars.BCRYPT_SALT_ROUND
   );
   const payloadWithHashPassword = {

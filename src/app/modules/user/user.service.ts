@@ -21,7 +21,7 @@ const createUser = async (payload: IUser) => {
     }
     const { password, ...rest } = payload;
     const hashPassword = await bcryptHashPassword(
-      password,
+      password as string,
       envVars.BCRYPT_SALT_ROUND
     );
 

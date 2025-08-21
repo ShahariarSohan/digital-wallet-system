@@ -9,8 +9,9 @@ export interface IAgent {
   _id?: string;
   name: string;
   email: string;
-  password: string;
-  phone: string;
+  password?: string;
+  phone?: string;
+  picture?: string;
   role?: Role.AGENT;
   auths: IAuthProvider[];
   approvalStatus?: ApprovalStatus;
