@@ -81,7 +81,7 @@ const updateUser = async (payload: Partial<IUser>, userId: string, decodedToken:
   if (!isUserExist) {
     throw new AppError(httpStatus.NOT_FOUND,"No user found")
   }
-  if (payload.phone || payload.role || payload.isActive || payload.isDeleted || payload.isVerified || payload.email) {
+  if ( payload.role || payload.isActive || payload.isDeleted || payload.isVerified || payload.email) {
     if (decodedToken.role === Role.USER) {
       throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
     }

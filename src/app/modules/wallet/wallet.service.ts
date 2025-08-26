@@ -1,3 +1,4 @@
+
 import httpStatus from "http-status-codes";
 
 import AppError from "../../errorHelpers/appError";
@@ -12,6 +13,7 @@ import { ApprovalStatus } from "../agent/agent.interface";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { walletSearchAbleFields } from "./wallet.constant";
 import { IWallet, lockStatus } from "./wallet.interface";
+
 
 const transactionPercentage = 0.01;
 const commissionPercentage = 0.02;
@@ -114,12 +116,6 @@ const sendMoney = async (
 
   try {
     session.startTransaction();
-    if (senderId === receiverId) {
-      throw new AppError(
-        httpStatus.BAD_REQUEST,
-        "You can't send money to your own wallet"
-      );
-    }
     const isSenderWalletExist = await Wallet.findOne({ user: senderId });
     if (!isSenderWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, "Sender wallet not found");
@@ -191,6 +187,9 @@ const cashIn = async (agentId: string, userId: string, amount: number) => {
         `Agent Approval is ${isAgentExist.approvalStatus}`
       );
     }
+
+  
+   
     const isAgentWalletExist = await Wallet.findOne({ user: agentId });
     if (!isAgentWalletExist) {
       throw new AppError(httpStatus.NOT_FOUND, " Agent wallet not found");

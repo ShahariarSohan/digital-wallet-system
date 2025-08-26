@@ -8,6 +8,7 @@ import AppError from '../../errorHelpers/appError';
 import { createUserToken } from '../../utils/createToken';
 import { setAuthCookie } from '../../utils/setCookie';
 import { envVars } from '../../config/env';
+import { JwtPayload } from 'jsonwebtoken';
 
 const credentialsLogin = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
     
@@ -38,6 +39,26 @@ const logout = catchAsync(async(req: Request, res: Response, next: NextFunction)
         data: null,
       });
 })
+const changePassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user;
+    const oldPassword = req.body.currentPassword;
+    const newPassword = req.body.password;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    await authServices.changePassword(
+      oldPassword,
+      newPassword,
+      decodedToken as JwtPayload
+    );
+
+    sendResponse(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: "Password Changed Successfully",
+      data: null,
+    });
+  }
+);
 const googleCallbackController = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let redirectTo = req.query.state ? (req.query.state as string) : ""
@@ -57,5 +78,6 @@ const googleCallbackController = catchAsync(
 export const authControllers = {
   credentialsLogin,
   googleCallbackController,
-  logout
+  logout,
+  changePassword
 }

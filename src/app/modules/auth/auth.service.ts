@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import  httpStatus  from 'http-status-codes';
 import AppError from "../../errorHelpers/appError";
@@ -9,6 +10,10 @@ import { createUserToken } from '../../utils/createToken';
 import { setAuthCookie } from '../../utils/setCookie';
 import { Response } from 'express';
 import { Admin } from '../admin/admin.model';
+import { JwtPayload } from 'jsonwebtoken';
+import { bcryptHashPassword } from '../../utils/hashPassword';
+import { envVars } from '../../config/env';
+
 
 
 const credentialsLogin = async (res:Response ,payload:ILogin) => {
@@ -49,8 +54,30 @@ const credentialsLogin = async (res:Response ,payload:ILogin) => {
     }
 
 }
-
+const changePassword = async (
+  oldPassword: string,
+  newPassword: string,
+  decodedToken: JwtPayload
+) => {
+    let user = await User.findById(decodedToken.id);
+    if (!user) {
+         user = await Agent.findById(decodedToken.id);
+     }
+  const isPasswordMatched = await bcryptComparePassword(
+    oldPassword,
+    user!.password as string
+  );
+  if (!isPasswordMatched) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "Old password doesn't match");
+  }
+  user!.password = await bcryptHashPassword(
+    newPassword,
+    envVars.BCRYPT_SALT_ROUND
+  );
+  user!.save();
+  return true;
+};
 export const authServices = {
     credentialsLogin,
-    
+    changePassword
 }

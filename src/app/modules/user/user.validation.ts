@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { userStatus } from "./user.interface";
 
 
 export const createUserZodSchema = z.object({
@@ -48,7 +49,15 @@ export const updateUserZodSchema = z.object({
     .optional(),
   isActive: z.boolean({ error: "isActive must be true or false" }).optional(),
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
+  status: z.enum(Object.values(userStatus) as [string]).optional(),
   isVerified: z
     .boolean({ error: "isVerified must be true or false" })
+    .optional(),
+  phone: z
+    .string({ error: "Phone required and it must be string and unique" })
+    .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
+      message:
+        "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
+    })
     .optional(),
 });

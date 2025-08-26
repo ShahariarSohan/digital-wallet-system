@@ -23,7 +23,14 @@ const createAdmin = async (payload: IAdmin) => {
   const admin = await Admin.create(payloadWithHashPassword);
   return admin;
 };
-
+const getMe = async (adminId: string) => {
+  const isAdminExist = await Admin.findById(adminId);
+  if (!isAdminExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "No user found");
+  }
+  return isAdminExist;
+};
 export const adminServices = {
   createAdmin,
+  getMe
 };

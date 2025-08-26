@@ -24,7 +24,7 @@ export const sendMoneySchema = z.object({
     .positive({ message: "Amount must be a positive number" })
     .min(50, "Amount must be at least 50")
     .max(1_000_000, "Amount too large"),
-  receiverEmail: z.string({ error: "Need receiverEmail  and it must be string" }),
+  email: z.string({ error: "Need receiverEmail  and it must be string" }),
 });
 export const agentUserTransactionSchema = z.object({
   amount: z
@@ -34,7 +34,7 @@ export const agentUserTransactionSchema = z.object({
     .positive({ message: "Amount must be a positive number" })
     .min(50, "Amount must be at least 50")
     .max(1_000_000, "Amount too large"),
-  userEmail: z.string({ error: "Need userEmail  and it must be string" }),
+  email: z.string({ error: "Need userEmail  and it must be string" }),
 });
 
 export const lockActivitySchema = z.object({

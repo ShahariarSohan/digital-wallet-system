@@ -34,7 +34,7 @@ const withdraw = async (req: Request, res: Response, next: NextFunction) => {
 const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
   const sender = req.user as JwtPayload;
   const amount = req.body.amount;
-  const receiverEmail = req.body.receiverEmail;
+  const receiverEmail = req.body.email;
   const isUserExist = await User.findOne({ email: receiverEmail })
   if (!isUserExist) {
      throw new AppError(
@@ -43,6 +43,12 @@ const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
      );
   }
   const receiverId=isUserExist._id
+  if (sender.email === receiverEmail) {
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          "You can't send money to your own wallet"
+        );
+      }
   const result = await walletServices.sendMoney(sender.id, receiverId, amount);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -54,7 +60,7 @@ const sendMoney = async (req: Request, res: Response, next: NextFunction) => {
 const cashIn = async (req: Request, res: Response, next: NextFunction) => {
   const agent = req.user as JwtPayload;
   const amount = req.body.amount;
-   const userEmail = req.body.userEmail;
+   const userEmail = req.body.email;
    const isUserExist = await User.findOne({ email: userEmail });
    if (!isUserExist) {
      throw new AppError(httpStatus.NOT_FOUND, "No Email exist");
@@ -71,7 +77,7 @@ const cashIn = async (req: Request, res: Response, next: NextFunction) => {
 const cashOut = async (req: Request, res: Response, next: NextFunction) => {
   const agent = req.user as JwtPayload;
   const amount = req.body.amount;
-   const userEmail = req.body.userEmail;
+   const userEmail = req.body.email;
    const isUserExist = await User.findOne({ email: userEmail });
    if (!isUserExist) {
      throw new AppError(httpStatus.NOT_FOUND, "No Email exist");
@@ -82,7 +88,7 @@ const cashOut = async (req: Request, res: Response, next: NextFunction) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "CashOut successfully ",
+    message: "CashOut successfully",
     data: result,
   });
 };

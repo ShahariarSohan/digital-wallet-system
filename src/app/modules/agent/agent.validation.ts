@@ -55,4 +55,10 @@ export const updateAgentZodSchema = z.object({
   isVerified: z
     .boolean({ error: "isVerified must be true or false" })
     .optional(),
+   phone: z
+    .string({ error: "Phone  required and it must be string and unique" })
+    .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
+      message:
+        "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
+    }).optional(),
 });

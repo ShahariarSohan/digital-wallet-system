@@ -87,7 +87,6 @@ const updateAgent = async (
     throw new AppError(httpStatus.NOT_FOUND, "No agent found");
   }
   if (
-    payload.phone ||
     payload.email||
     payload.role ||
     payload.isActive ||
