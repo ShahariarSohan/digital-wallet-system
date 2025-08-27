@@ -1,5 +1,7 @@
 
 import { Response } from "express";
+import { envVars } from "../config/env";
+
 
 
 interface IAuthTokens{
@@ -12,14 +14,16 @@ export const setAuthCookie = (res: Response, tokenInfo: IAuthTokens) => {
         res.cookie("accessToken", tokenInfo.accessToken, {
             httpOnly: true,
             secure: true,
-            sameSite:"none",
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         })
     }
     if (tokenInfo.refreshToken) {
         res.cookie("refreshToken", tokenInfo.refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite:"none"
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         })
     }
 }
