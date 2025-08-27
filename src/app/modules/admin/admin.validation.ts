@@ -24,15 +24,17 @@ export const createAdminZodSchema = z.object({
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
       message:
         "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
-    }).optional(),
+    })
+    .optional(),
 });
 
-export const updateAdminZodSchema = z.object({
+export const adminSettingsSchema = z.object({
   name: z
     .string({ error: "Name must be string" })
     .min(5, { message: "Name must be  at least 5 characters" })
     .max(50, { message: "Name must be maximum of 50 characters" })
     .optional(),
+ 
   password: z
     .string({ error: " Password must be string" })
     .min(8, { message: "Password must be at least 8 characters" })
@@ -44,9 +46,19 @@ export const updateAdminZodSchema = z.object({
       message: `Password must be at least 1 special character`,
     })
     .optional(),
+  phone: z
+    .string({ error: "Phone required and it must be string and unique" })
+    .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
+      message:
+        "Phone must be valid for Bangladesh.Format : +8801XXXXXXX or 01XXXXXXXX",
+    })
+    .optional(),
   isActive: z.boolean({ error: "isActive must be true or false" }).optional(),
   isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
   isVerified: z
     .boolean({ error: "isVerified must be true or false" })
     .optional(),
+  alertMode: z.enum(["toast", "sweetalert"]).optional(),
+  // theme: z.enum(["light", "dark", "system"]).optional(),
+  language: z.enum(["en", "bn", "es"]).optional(),
 });

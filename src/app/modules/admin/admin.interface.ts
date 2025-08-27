@@ -13,4 +13,7 @@ export interface IAdmin {
   isActive?: boolean;
   isDeleted?: boolean;
   isVerified?: boolean;
+  alertMode?: "toast" | "sweetalert";
+  theme?: "light" | "dark" | "system";
+  language?: "en" | "bn" | "es";
 }
