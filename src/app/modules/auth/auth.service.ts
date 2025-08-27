@@ -52,7 +52,6 @@ const credentialsLogin = async (res:Response ,payload:ILogin) => {
         refreshToken: getToken.refreshToken,
         data:rest
     }
-
 }
 const changePassword = async (
   oldPassword: string,

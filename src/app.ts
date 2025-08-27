@@ -6,8 +6,9 @@ import "./app/config/passport"
 import { router } from "./app/routes";
 import { globalErrorHandlers } from "./app/middlewares/globalErrorHandlers";
 import { notFoundRoute } from "./app/middlewares/notFound";
-import { envVars } from "./app/config/env";
+
 import passport from "passport";
+import { envVars } from "./app/config/env";
 const app = express();
 
 app.use(
@@ -24,7 +25,7 @@ app.use(express.json());
 app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: envVars.FRONTEND_URL, 
+    origin: envVars.FRONTEND_URL,
     credentials: true,
   })
 );

@@ -38,8 +38,7 @@ export const checkAuth = (...authRole: string[]) => async (req: Request, res: Re
          if (isAccountExist.isDeleted) {
            throw new AppError(httpStatus.BAD_REQUEST, "Account is deleted");
       }
-        console.log("authRole",authRole)
-        console.log("verifiedToken role",verifiedToken.role)
+      
         if (!authRole.includes(verifiedToken.role)) {
             throw new AppError(httpStatus.BAD_REQUEST,"You are not permitted");
       }
