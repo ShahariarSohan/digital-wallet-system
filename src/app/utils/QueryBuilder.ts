@@ -6,18 +6,20 @@ import { excludeFields } from "./constant";
 export class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
   public readonly query: Record<string, string>;
-
+  private readonly baseFilter: Record<string, any>;
   constructor(modelQuery: Query<T[], T>, query: Record<string, string>) {
     this.modelQuery = modelQuery;
     this.query = query;
+    this.baseFilter = {...modelQuery.getFilter() };
   }
-    //utility
-    
+  //utility
+
   filterAmount() {
     const filter: Record<string, any> = { ...this.query };
+
     for (const field of excludeFields) {
       delete filter[field];
-      }
+    }
     delete filter.minAmount;
     delete filter.maxAmount;
     if (this.query.minAmount || this.query.maxAmount) {
@@ -29,16 +31,18 @@ export class QueryBuilder<T> {
         range.$lte = Number(this.query.maxAmount);
       }
       filter["amount"] = range;
-      return filter;
     }
     if (this.query.amount && !this.query.minAmount && !this.query.maxAmount) {
       filter["amount"] = Number(this.query.amount);
-      return filter;
     }
+
     return filter;
   }
   filter(): this {
-      this.modelQuery = this.modelQuery.find(this.filterAmount());
+    this.modelQuery = this.modelQuery.find({
+      ...this.baseFilter,
+      ...this.filterAmount(),
+    });
     return this;
   }
   search(searchAbleFields?: string[]): this {
@@ -48,7 +52,12 @@ export class QueryBuilder<T> {
         [field]: { $regex: searchTerm, $options: "i" },
       })),
     };
-    this.modelQuery = this.modelQuery.find(searchQuery);
+
+    this.modelQuery = this.modelQuery.find({
+      ...this.baseFilter,
+      ...this.filterAmount(),
+      ...searchQuery,
+    });
     return this;
   }
   sort(): this {
@@ -72,9 +81,10 @@ export class QueryBuilder<T> {
     return this.modelQuery;
   }
   async getMeta() {
-    const totalDocuments = await this.modelQuery.model.countDocuments(
-      this.filterAmount()
-    );
+    const totalDocuments = await this.modelQuery.model.countDocuments({
+      ...this.baseFilter,
+      ...this.filterAmount(),
+    });
     const page = Number(this.query.page) || 1;
     const limit = Number(this.query.limit) || 10;
     const totalPages = Math.ceil(totalDocuments / limit);

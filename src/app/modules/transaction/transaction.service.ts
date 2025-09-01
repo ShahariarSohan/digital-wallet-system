@@ -43,6 +43,7 @@ const getMyTransaction = async (
  const queryBuilder = new QueryBuilder(Transaction.find(baseFilter), query);
  const transactions = await queryBuilder
    .filter()
+   .search(transactionSearchAbleFields)
    .sort()
    .fields()
    .paginate()
