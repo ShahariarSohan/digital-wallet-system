@@ -18,6 +18,19 @@ interface EnvConfig {
   GOOGLE_CALLBACK_URL: string;
   EXPRESS_SESSION_SECRET: string;
   FRONTEND_URL: string;
+  EMAIL_SENDER: {
+    SMTP_PASS: string;
+    SMTP_HOST: string;
+    SMTP_PORT: string;
+    SMTP_USER: string;
+    SMTP_FROM: string;
+  };
+  REDIS: {
+    REDIS_USERNAME: string;
+    REDIS_PASSWORD: string;
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+  };
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -38,6 +51,15 @@ const loadEnvVariables = (): EnvConfig => {
     "GOOGLE_CALLBACK_URL",
     "EXPRESS_SESSION_SECRET",
     "FRONTEND_URL",
+    "SMTP_PASS",
+    "SMTP_HOST",
+    "SMTP_PORT",
+    "SMTP_USER",
+    "SMTP_FROM",
+    "REDIS_USERNAME",
+    "REDIS_PASSWORD",
+    "REDIS_HOST",
+    "REDIS_PORT",
   ];
   requiredVariables.forEach((key) => {
     if (!process.env[key]) {
@@ -61,6 +83,19 @@ const loadEnvVariables = (): EnvConfig => {
     GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL as string,
     EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
     FRONTEND_URL: process.env.FRONTEND_URL as string,
+    EMAIL_SENDER: {
+      SMTP_PASS: process.env.SMTP_PASS as string,
+      SMTP_HOST: process.env.SMTP_HOST as string,
+      SMTP_PORT: process.env.SMTP_PORT as string,
+      SMTP_USER: process.env.SMTP_USER as string,
+      SMTP_FROM: process.env.SMTP_FROM as string,
+    },
+    REDIS: {
+      REDIS_USERNAME: process.env.SMTP_USERNAME as string,
+      REDIS_PASSWORD: process.env.SMTP_PASSWORD as string,
+      REDIS_HOST: process.env.SMTP_HOST as string,
+      REDIS_PORT: process.env.SMTP_PORT as string,
+    },
   };
 };
 

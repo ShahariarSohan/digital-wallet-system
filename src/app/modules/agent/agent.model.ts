@@ -19,7 +19,7 @@ const agentSchema = new Schema<IAgent>(
     },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    isVerified: { type: Boolean, default: true },
+    isVerified: { type: Boolean, default: false },
     wallet: {
       type: Schema.Types.ObjectId,
       ref: "Wallet",

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .otp-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .otp-container h1 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #333;
+    }
+    .otp-container p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .otp-code {
+      font-size: 36px;
+      font-weight: bold;
+      color: #2a9d8f;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+    .otp-note {
+      font-size: 14px;
+      color: #999;
+    }
+    @media (max-width: 500px) {
+      .otp-container {
+        padding: 30px 20px;
+      }
+      .otp-code {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="otp-container">
+    <h1>Hello, <%= name %>!</h1>
+    <p>Your One-Time Password (OTP) is:</p>
+    <div class="otp-code"><%= otp %></div>
+    <p class="otp-note">This OTP is valid for 2 minutes.</p>
+  </div>
+</body>
+</html>
