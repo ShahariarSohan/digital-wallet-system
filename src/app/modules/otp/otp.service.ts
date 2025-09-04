@@ -5,7 +5,7 @@ import { User } from "../user/user.model";
 import { generateOtp } from "../../utils/generateOtp";
 import { redisClient } from "../../config/redis";
 import { sendEmail } from "../../utils/sendEmail";
-import { Role } from "../../interfaces/interface";
+
 
 const sendOtp = async (email: string, name: string) => {
   let account = await User.findOne({ email });
@@ -62,19 +62,8 @@ const verifyOtp = async (email: string, otp: string) => {
   if (savedOtp !== otp) {
     throw new AppError(httpStatus.BAD_REQUEST, "Invalid OTP");
   }
-  if (account.role === Role.USER) {
-    await User.updateOne(
-      { email },
-      { isVerified: true },
-      { runValidators: true }
-    );
-  } else {
-    await Agent.updateOne(
-      { email },
-      { isVerified: true },
-      { runValidators: true }
-    );
-  }
+ account.isVerified = true;
+ await account.save();
   await redisClient.del(redisKey);
 };
 

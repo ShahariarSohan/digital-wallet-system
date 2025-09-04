@@ -26,7 +26,7 @@ const verifyOtp = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.ACCEPTED,
       success: true,
-      message: " OTP send successfully",
+      message: "Verified OTP successfully",
       data: null,
     });
   }

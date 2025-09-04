@@ -32,7 +32,7 @@ app.use(
 app.use("/api/v1", router);
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
-    message: "This is a Digital Wallet System Server",
+    message: "This is  ePay Wallet Server",
   });
 });
 

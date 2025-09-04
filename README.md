@@ -21,21 +21,15 @@ This a Digital Wallet System Server .It is a wallet system like bkash or nagad.I
 
 - Use this link to start server
 
-### Setup locally:
 
-#### Install
 
-- Git
+#### Core Technology 
 - MongoDB
-- Node js
-- Typescript
 - Express
-- Postman
-- Mongoose
-- Cors
-- JWT
-- Bcrypt
-- cookie-parser 
+- React
+- Node js
+
+### Other Technologies
 
 Some software you may not need to install but it is always safe to install all required softwares.
 

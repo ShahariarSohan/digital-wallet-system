@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
 import { IAuthProvider, Role } from "../../interfaces/interface";
 export enum userStatus {
- 
   BLOCK = "block",
   UNBLOCK="unblock"
 }
