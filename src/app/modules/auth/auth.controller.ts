@@ -63,11 +63,11 @@ const changePassword = catchAsync(
 const forgetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const {email}=req.body
-    const result = await authServices.forgetPassword(email);
+    const result = await authServices.forgetPassword(res,email);
     sendResponse(res, {
       statusCode: httpStatus.ACCEPTED,
       success: true,
-      message: "Successfully Logged In",
+      message: "Sent forget-password email",
       data: result,
     });
   }
@@ -80,7 +80,7 @@ const resetPassword = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.ACCEPTED,
       success: true,
-      message: "Successfully Logged In",
+      message: "Reset password successfully",
       data: result,
     });
   }

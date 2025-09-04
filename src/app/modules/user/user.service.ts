@@ -9,6 +9,7 @@ import { QueryBuilder } from "../../utils/QueryBuilder";
 import { userSearchAbleFields } from "./user.constant";
 import { JwtPayload } from "jsonwebtoken";
 import { Role } from "../../interfaces/interface";
+import { Agent } from "../agent/agent.model";
 
 const createUser = async (payload: IUser) => {
   const session = await User.startSession();
@@ -19,6 +20,10 @@ const createUser = async (payload: IUser) => {
     if (isUserExist) {
       throw new AppError(httpStatus.BAD_REQUEST, "User Already Exist");
     }
+     const isAgentExist = await Agent.findOne({ email: payload.email });
+        if (isAgentExist) {
+          throw new AppError(httpStatus.BAD_REQUEST, "Agent Already Exist");
+        }
     const { password, ...rest } = payload;
     const hashPassword = await bcryptHashPassword(
       password as string,

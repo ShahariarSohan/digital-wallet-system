@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from "http-status-codes";
@@ -51,7 +52,7 @@ const credentialsLogin = async (res: Response, payload: ILogin) => {
   if (!isPasswordMatched) {
     throw new AppError(httpStatus.NOT_FOUND, "Wrong Password");
   }
-  const getToken = createUserToken(isAccountExist);
+  const getToken:any = createUserToken(isAccountExist);
   setAuthCookie(res, getToken);
   const { password, ...rest } = isAccountExist.toObject();
   return {
@@ -86,7 +87,7 @@ const changePassword = async (
   user!.save();
   return true;
 };
-const forgetPassword = async (email: string) => {
+const forgetPassword = async (res: Response, email: string) => {
   let user = await User.findOne({ email });
   if (!user) {
     user = await Agent.findOne({ email });
@@ -94,41 +95,48 @@ const forgetPassword = async (email: string) => {
   if (!user) {
     throw new AppError(httpStatus.BAD_REQUEST, "No user exist");
   }
-  if (user.isVerified) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Already Verified");
+  if (!user.isVerified) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You are not Verified");
   }
   if (!user.isActive || user.isDeleted) {
     throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
   }
-  if (user.role === Role.USER && user.status === userStatus.BLOCK) {
+  if (
+    user?.status === userStatus.BLOCK ||
+    user?.approvalStatus === ApprovalStatus.PENDING ||
+    user?.approvalStatus === ApprovalStatus.SUSPENDED
+  ) {
     throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
-  } 
-    if (
-      user?.approvalStatus === ApprovalStatus.PENDING ||
-      user?.approvalStatus === ApprovalStatus.SUSPENDED
-    ) {
-      throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
-    }
-  
+  }
   const jwtPayload = {
     id: user._id,
     email: user.email,
     role: user.role,
   };
-  const resetToken = generateToken(jwtPayload, envVars.JWT_ACCESS_SECRET, "10m");
-  const resetURILink = `${envVars.FRONTEND_URL}/reset-password?id=${user._id}&token=${resetToken}`
-  
-     sendEmail({
-      to: user.email,
-      subject: "Reset password",
-      templateName: "Forget password",
-       templateData: {
-         name: user.name,
-         resetURILink,
-       }
-    })
+  const resetToken = generateToken(
+    jwtPayload,
+    envVars.JWT_ACCESS_SECRET,
+    "10m"
+  );
+  res.cookie("accessToken", resetToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 10* 60 * 1000,
+  });
+  const resetURILink = `${envVars.FRONTEND_URL}/reset-password?id=${user._id}`;
+
+  sendEmail({
+    to: user.email,
+    subject: "Reset password",
+    templateName: "forgetPassword",
+    templateData: {
+      name: user.name,
+      resetURILink,
+    },
+  });
 };
-const resetPassword = async (id:string,newPassword:string,decodedToken:JwtPayload) => {
+const resetPassword = async (id: string, newPassword: string, decodedToken: JwtPayload) => {
   if (id !== decodedToken.id) {
     throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted to reset password")
   }
