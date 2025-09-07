@@ -9,6 +9,7 @@ import { IErrorSources } from "../interfaces/errorTypes";
 import { handleCastError } from "../errorHelpers/hadleCastError";
 import { handleValidationError } from "../errorHelpers/handleValidationError";
 import AppError from "../errorHelpers/appError";
+import { deleteImageFromCloudinary } from "../config/cloudinary";
 
 export const globalErrorHandlers = async (err: any, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 500;
@@ -21,6 +22,9 @@ export const globalErrorHandlers = async (err: any, req: Request, res: Response,
         const simplifiedError = handleDuplicateError(err)
         statusCode=simplifiedError.statusCode
         message=simplifiedError.message
+    }
+    if (req.file) {
+        await deleteImageFromCloudinary(req.file.path)
     }
     else if (err.name === "ZodError") {
         const simplifiedError = handleZodError(err)

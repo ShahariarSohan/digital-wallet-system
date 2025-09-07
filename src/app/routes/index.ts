@@ -7,6 +7,7 @@ import { walletRoutes } from "../modules/wallet/wallet.route";
 import { transactionRoutes } from "../modules/transaction/transaction.route";
 import { statRoutes } from "../modules/stats/stats.route";
 import { otpRoutes } from "../modules/otp/otp.route";
+import { imageRoutes } from "../modules/imageUpload/image.route";
 
 export const router = Router();
 
@@ -42,6 +43,10 @@ const moduleRoutes = [
   {
     path: "/otp",
     route: otpRoutes,
+  },
+  {
+    path: "/image",
+    route: imageRoutes,
   },
 ];
 

@@ -101,13 +101,6 @@ const forgetPassword = async (res: Response, email: string) => {
   if (!user.isActive || user.isDeleted) {
     throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
   }
-  if (
-    user?.status === userStatus.BLOCK ||
-    user?.approvalStatus === ApprovalStatus.PENDING ||
-    user?.approvalStatus === ApprovalStatus.SUSPENDED
-  ) {
-    throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
-  }
   const jwtPayload = {
     id: user._id,
     email: user.email,

@@ -25,12 +25,14 @@ interface EnvConfig {
     SMTP_USER: string;
     SMTP_FROM: string;
   };
-  REDIS: {
-    REDIS_USERNAME: string;
-    REDIS_PASSWORD: string;
-    REDIS_HOST: string;
-    REDIS_PORT: string;
-  };
+  REDIS_USERNAME: string;
+  REDIS_PASSWORD: string;
+  REDIS_HOST: string;
+  REDIS_PORT: string;
+
+  CLOUDINARY_CLOUD_NAME: string;
+  CLOUDINARY_API_KEY: string;
+  CLOUDINARY_API_SECRET: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -60,6 +62,9 @@ const loadEnvVariables = (): EnvConfig => {
     "REDIS_PASSWORD",
     "REDIS_HOST",
     "REDIS_PORT",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
   ];
   requiredVariables.forEach((key) => {
     if (!process.env[key]) {
@@ -90,12 +95,15 @@ const loadEnvVariables = (): EnvConfig => {
       SMTP_USER: process.env.SMTP_USER as string,
       SMTP_FROM: process.env.SMTP_FROM as string,
     },
-    REDIS: {
-      REDIS_USERNAME: process.env.SMTP_USERNAME as string,
-      REDIS_PASSWORD: process.env.SMTP_PASSWORD as string,
-      REDIS_HOST: process.env.SMTP_HOST as string,
-      REDIS_PORT: process.env.SMTP_PORT as string,
-    },
+
+    REDIS_USERNAME: process.env.SMTP_USERNAME as string,
+    REDIS_PASSWORD: process.env.SMTP_PASSWORD as string,
+    REDIS_HOST: process.env.SMTP_HOST as string,
+    REDIS_PORT: process.env.SMTP_PORT as string,
+
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
   };
 };
 
