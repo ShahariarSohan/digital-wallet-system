@@ -24,7 +24,24 @@ const imageUpload = catchAsync(
     });
   }
 );
+const imageDelete = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    
+   const decodedToken = req.user as JwtPayload;
+    const id = req.params.id;
+    const picture = req.body.picture;
+ await imageServices.imageDelete(id,picture,decodedToken)
+
+    sendResponse(res, {
+      statusCode: httpStatus.ACCEPTED,
+      success: true,
+      message: " Image deleted",
+      data: null,
+    });
+  }
+);
 
 export const imageControllers = {
-    imageUpload
+  imageUpload,
+  imageDelete
 }

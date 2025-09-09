@@ -28,17 +28,47 @@ const imageUpload = async (
   }
   if (!account.isActive || account.isDeleted) {
     throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
-    }
-    const oldPicture=account.picture
-     account.picture = picture;
-    await account.save();
-    
-    if (picture && oldPicture) {
-      await deleteImageFromCloudinary(oldPicture);
   }
-    
+  const oldPicture = account.picture;
+  account.picture = picture;
+  await account.save();
+  if (picture && oldPicture) {
+    await deleteImageFromCloudinary(oldPicture);
+  }
+};
+const imageDelete = async (
+  id: string,
+  picture: string,
+  decodedToken: JwtPayload
+) => {
+  if (id !== decodedToken.id) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "You are not permitted to delete image"
+    );
+  }
+  let account = await User.findById(id);
+  if (!account) {
+    account = await Agent.findById(id);
+  }
+  if (!account) {
+    throw new AppError(httpStatus.BAD_REQUEST, "No Account exist");
+  }
+  if (!account.isVerified) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You are not Verified");
+  }
+  if (!account.isActive || account.isDeleted) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You are not permitted");
+  }
+  const savedPicture = account.picture;
+  account.picture = undefined;
+  await account.save();
+  if (savedPicture && savedPicture === picture) {
+     await deleteImageFromCloudinary(picture)
+  }
 };
 
 export const imageServices = {
   imageUpload,
+  imageDelete,
 };

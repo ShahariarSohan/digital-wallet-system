@@ -8,6 +8,7 @@ import { Role } from '../../interfaces/interface';
 
 const router = Router();
 router.patch("/upload/:id",checkAuth(Role.USER,Role.AGENT),multerUpload.single("file"),imageControllers.imageUpload)
+router.patch("/delete/:id",checkAuth(Role.USER,Role.AGENT),imageControllers.imageDelete)
 
 
 export const imageRoutes = router;

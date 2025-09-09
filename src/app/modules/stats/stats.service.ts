@@ -5,18 +5,18 @@ import { User } from "../user/user.model";
 import { Wallet } from "../wallet/wallet.model";
 
 const getUserStats = async () => {
-  const totalUsersPromise = User.countDocuments();
-  const [totalUsers] = await Promise.all([totalUsersPromise]);
+  const totalUsers =await User.countDocuments();
+
   return { totalUsers };
 };
 const getAgentStats = async () => {
-  const totalAgentsPromise = Agent.countDocuments();
-  const [totalAgents] = await Promise.all([totalAgentsPromise]);
+  const totalAgents =await Agent.countDocuments();
+  
   return { totalAgents };
 };
 const getWalletStats = async () => {
-  const totalWalletsPromise = Wallet.countDocuments();
-  const [totalWallets] = await Promise.all([totalWalletsPromise]);
+  const totalWallets = await Wallet.countDocuments();
+ 
   return { totalWallets };
 };
 const getTransactionStats = async () => {
