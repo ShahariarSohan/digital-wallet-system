@@ -6,7 +6,6 @@ import { generateOtp } from "../../utils/generateOtp";
 import { redisClient } from "../../config/redis";
 import { sendEmail } from "../../utils/sendEmail";
 
-
 const sendOtp = async (email: string, name: string) => {
   let account = await User.findOne({ email });
   if (!account) {
@@ -21,15 +20,14 @@ const sendOtp = async (email: string, name: string) => {
 
   const otp = generateOtp();
   const redisKey = `otp:${email}`;
-  console.log(otp, redisKey);
-  console.log("Redis open?", redisClient.isOpen);
-  const result = await redisClient.set(redisKey, otp, {
+ 
+   await redisClient.set(redisKey, otp, {
     expiration: {
       type: "EX",
       value: 2 * 60,
     },
   });
-  console.log("After set", result);
+  
 
   await sendEmail({
     to: email,
@@ -40,7 +38,7 @@ const sendOtp = async (email: string, name: string) => {
       otp: otp,
     },
   });
-  console.log("run3");
+ 
 };
 
 const verifyOtp = async (email: string, otp: string) => {
@@ -62,9 +60,8 @@ const verifyOtp = async (email: string, otp: string) => {
   if (savedOtp !== otp) {
     throw new AppError(httpStatus.BAD_REQUEST, "Invalid OTP");
   }
- account.isVerified = true;
- await account.save();
-  await redisClient.del(redisKey);
+  account.isVerified = true;
+  await Promise.all([account.save(), redisClient.del([redisKey])]);
 };
 
 export const otpServices = {

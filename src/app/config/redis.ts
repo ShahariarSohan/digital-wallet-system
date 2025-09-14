@@ -9,13 +9,6 @@ export const redisClient = createClient({
     port: Number(envVars.REDIS_PORT),
   },
 });
-// export const redisClient = createClient({
-//   url: `redis://${envVars.REDIS.REDIS_USERNAME}:${envVars.REDIS.REDIS_PASSWORD}@${envVars.REDIS.REDIS_HOST}:${envVars.REDIS.REDIS_PORT}`,
-//   socket: {
-//     tls: true,
-//     rejectUnauthorized: false,
-//   },
-// });
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 

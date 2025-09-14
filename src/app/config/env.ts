@@ -96,10 +96,10 @@ const loadEnvVariables = (): EnvConfig => {
       SMTP_FROM: process.env.SMTP_FROM as string,
     },
 
-    REDIS_USERNAME: process.env.SMTP_USERNAME as string,
-    REDIS_PASSWORD: process.env.SMTP_PASSWORD as string,
-    REDIS_HOST: process.env.SMTP_HOST as string,
-    REDIS_PORT: process.env.SMTP_PORT as string,
+    REDIS_USERNAME: process.env.REDIS_USERNAME as string,
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD as string,
+    REDIS_HOST: process.env.REDIS_HOST as string,
+    REDIS_PORT: process.env.REDIS_PORT as string,
 
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
