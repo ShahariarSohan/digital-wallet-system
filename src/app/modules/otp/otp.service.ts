@@ -17,6 +17,9 @@ const sendOtp = async (email: string, name: string) => {
   if (account.isVerified) {
     throw new AppError(httpStatus.BAD_REQUEST, "Already Verified");
   }
+  if (account.name !== name) {
+     throw new AppError(httpStatus.BAD_REQUEST, "Invalid username");
+  }
 
   const otp = generateOtp();
   const redisKey = `otp:${email}`;
