@@ -9,7 +9,7 @@ import { checkAuth } from "../../middlewares/checkAuth";
 const router = Router();
 
 router.post("/register",validateRequest(createAdminZodSchema),adminControllers.createAdmin)
-router.get("/me",checkAuth(Role.ADMIN),adminControllers.getMe)
+
 router.patch(
   "/settings/:id",
   checkAuth(Role.ADMIN),

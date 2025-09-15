@@ -65,13 +65,6 @@ const getAllAgent = async (query: Record<string, string>) => {
     meta: meta,
   };
 };
-const getMe = async (agentId: string) => {
-  const isAgentExist = await Agent.findById(agentId);
-  if (!isAgentExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "No agent found");
-  }
-  return isAgentExist;
-};
 const getSingleAgent = async (agentId: string) => {
   const isAgentExist = await Agent.findById(agentId);
   if (!isAgentExist) {
@@ -130,6 +123,5 @@ export const agentServices = {
   createAgent,
   getAllAgent,
   updateAgent,
-  getMe,
   getSingleAgent,
 };

@@ -100,6 +100,19 @@ const googleCallbackController = catchAsync(
     res.redirect(`${envVars.FRONTEND_URL}/${redirectTo}`);
   }
 );
+const getMe = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await authServices.getMe(decodedToken.id);
+
+    sendResponse(res, {
+      statusCode: httpStatus.ACCEPTED,
+      success: true,
+      message: "My data retrieved successfully",
+      data: result,
+    });
+  }
+);
 export const authControllers = {
   credentialsLogin,
   googleCallbackController,
@@ -107,4 +120,5 @@ export const authControllers = {
   changePassword,
   forgetPassword,
   resetPassword,
+  getMe
 };

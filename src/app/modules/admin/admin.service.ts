@@ -24,13 +24,7 @@ const createAdmin = async (payload: IAdmin) => {
   const admin = await Admin.create(payloadWithHashPassword);
   return admin;
 };
-const getMe = async (adminId: string) => {
-  const isAdminExist = await Admin.findById(adminId);
-  if (!isAdminExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "No user found");
-  }
-  return isAdminExist;
-};
+
 const updateAdminSettings = async (payload: Partial<IAdmin>, adminId: string, decodedToken: JwtPayload) => {
   
   if (adminId !== decodedToken.id ) {
@@ -49,6 +43,5 @@ const updateAdminSettings = async (payload: Partial<IAdmin>, adminId: string, de
 }
 export const adminServices = {
   createAdmin,
-  getMe,
   updateAdminSettings
 };

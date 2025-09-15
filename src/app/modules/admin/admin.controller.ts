@@ -18,19 +18,6 @@ const createAdmin = catchAsync(
     });
   }
 );
-const getMe = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const decodedToken = req.user as JwtPayload;
-    const result = await adminServices.getMe(decodedToken.id);
-
-    sendResponse(res, {
-      statusCode: httpStatus.ACCEPTED,
-      success: true,
-      message: "Admin retrieved successfully",
-      data: result,
-    });
-  }
-);
 const updateAdminSettings = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const decodedToken = req.user as JwtPayload
@@ -51,6 +38,5 @@ const updateAdminSettings = catchAsync(
 );
 export const  adminControllers = {
   createAdmin,
-  getMe,
   updateAdminSettings
 }

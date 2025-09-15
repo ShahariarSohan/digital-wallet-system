@@ -147,9 +147,23 @@ const resetPassword = async (id: string, newPassword: string, decodedToken: JwtP
     await user.save();
   
 }
+const getMe = async (decodedId: string) => {
+  let isAccountExist = await User.findById(decodedId);
+  if (!isAccountExist) {
+    isAccountExist = await Agent.findById(decodedId);
+  }
+  if (!isAccountExist) {
+   isAccountExist = await Admin.findById(decodedId);
+  }
+  if (!isAccountExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Account doesn't exist");
+  }
+  return isAccountExist;
+};
 export const authServices = {
   credentialsLogin,
   changePassword,
   forgetPassword,
-  resetPassword
+  resetPassword,
+  getMe
 };

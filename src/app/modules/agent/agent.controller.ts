@@ -33,19 +33,7 @@ const getAllAgent = catchAsync(
     });
   }
 );
-const getMe = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const decodedToken = req.user as JwtPayload;
-    const result = await agentServices.getMe(decodedToken.id);
 
-    sendResponse(res, {
-      statusCode: httpStatus.ACCEPTED,
-      success: true,
-      message: "Agent retrieved successfully",
-      data: result,
-    });
-  }
-);
 const getSingleAgent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const agentId = req.params.id;
@@ -77,7 +65,6 @@ const updateAgent = catchAsync(
 export const agentControllers = {
   createAgent,
   getAllAgent,
-  getMe,
   getSingleAgent,
   updateAgent
 };

@@ -63,13 +63,7 @@ const getAllUser = async (query: Record<string, string>) => {
     meta:meta
   }
 };
-const getMe = async (userId: string) => {
-   const isUserExist = await User.findById(userId);
-   if (!isUserExist) {
-     throw new AppError(httpStatus.NOT_FOUND, "No user found");
-  }
-  return isUserExist;
-}
+
 const getSingleUser = async (userId: string) => {
   const isUserExist = await User.findById(userId);
   if (!isUserExist) {
@@ -101,6 +95,5 @@ export const userServices = {
   createUser,
   getAllUser,
   updateUser,
-  getMe,
   getSingleUser
 };
