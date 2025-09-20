@@ -22,18 +22,22 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 - **Database:** MongoDB (Mongoose ODM)  
 - **Auth:** JWT, bcrypt  
 - **Architecture:** Modular, layered, REST API  
+- **Verification:** OTP
+- **ImageUpload:**
+---
+
+## Apis
+👉 [All Apis Here](./apis/endpoints.md)  
 
 ---
 
-## 📸 Demo / Case Study
-👉 [Collection Problem](./caseStudies/multipleCollection.md)  
-👉 [Collection Problem](./caseStudies/multipleCollection.md)  
-👉 [Collection Problem](./caseStudies/multipleCollection.md)  
+## Case Study
+👉 [Multiple MongoDB Collection Problem](./caseStudies/multipleCollection.md)  
 
 ---
 
 ## 📸 Demo 
-👉 [Watch Demo Video](#)  
+👉 [Test Endpoints In Postman](./epay.postman_collection.json)  
 
 ---
 ## 🚀 Quick Start
