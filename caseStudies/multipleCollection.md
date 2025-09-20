@@ -1,5 +1,4 @@
 ## 🧠 Problem Statement – Role Management & Collections
-
 Initially, I designed separate MongoDB collections for `users`, `agents`, and `admins`.  
 This worked fine for basic CRUD, but when I tried to implement **Google OAuth login**,  
 I realized a **serious problem**:
