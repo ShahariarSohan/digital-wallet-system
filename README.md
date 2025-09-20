@@ -26,11 +26,16 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 ---
 
 ## 📸 Demo / Case Study
-👉 [Watch Demo Video](#)  
-👉 [Read Detailed Case Study](./CASE_STUDY.md)  
+👉 [Collection Problem](./caseStudies/multipleCollection.md)  
+👉 [Collection Problem](./caseStudies/multipleCollection.md)  
+👉 [Collection Problem](./caseStudies/multipleCollection.md)  
 
 ---
 
+## 📸 Demo 
+👉 [Watch Demo Video](#)  
+
+---
 ## 🚀 Quick Start
 ```bash
 git clone https://github.com/ShahariarSohan/digital-wallet-system.git
