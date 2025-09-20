@@ -1,42 +1,39 @@
-# Digital Wallet  System Server
+# 💳 ePay – Digital Wallet API
 
-### About
+A **secure, modular, and role-based backend API** for a digital wallet system – inspired by **Bkash/Nagad**.  
+Built with **Express.js + Mongoose** following enterprise-grade architecture.  
 
-This a Digital Wallet System Server .It is a wallet system like bkash or nagad.In this server system user can deposit,withdraw and send money to other user.Agent can also cash in and cash out from any user. Admin has  the access of all features.
+🚀 Designed to demonstrate **real-world financial operations**: authentication, wallet management, and transactions.  
 
-### Core Features
+---
 
-- When user and agent will register an account, a wallet will create automatically.
-- User can deposit,withdraw and send money to other users wallet.
-- Agent can cash in and cash out from any users wallet.
-- Admin has all the access.He can update all important status related to users and agents and can also see all operations and history etc.
+## ✨ Core Features
+- 🔐 JWT Authentication + Role-based Access (`Admin | User | Agent`)
+- 🏦 Wallet auto-creation with initial balance
+- 💰 Transactions: Add Money | Withdraw | Send Money
+- 🧾 Transaction history tracking
+- 👮 Admin controls: Block/unblock wallets, Approve agents
+- ⚡ Atomic balance updates for secure operations
 
-### Postman  Api's link :
+---
 
-[https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624](https://shahariarsohan.postman.co/workspace/Shahariar-Sohan's-Workspace~e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=copy-link&creator=45506624) 
+## 🛠️ Tech Stack
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB (Mongoose ODM)  
+- **Auth:** JWT, bcrypt  
+- **Architecture:** Modular, layered, REST API  
 
-#### Server live link given below:
+---
 
-- [https://epay-wallet-server.vercel.app](https://epay-wallet-server.vercel.app)
+## 📸 Demo / Case Study
+👉 [Watch Demo Video](#)  
+👉 [Read Detailed Case Study](./CASE_STUDY.md)  
 
-- Use this link to start server
+---
 
-
-
-#### Core Technology 
-- MongoDB
-- Express
-- React
-- Node js
-
-### Other Technologies
-
-Some software you may not need to install but it is always safe to install all required softwares.
-
-#### Use command
-
-- npm i command install all the required file like zod,dotenv,cors etc will be automatically installed but you can also install it manually.
-
-#### Set up file
-
-- Finally Set up some file according to your requirement.
+## 🚀 Quick Start
+```bash
+git clone https://github.com/ShahariarSohan/digital-wallet-system.git
+cd epay-api
+npm install
+npm run dev
