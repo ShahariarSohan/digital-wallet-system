@@ -11,7 +11,7 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 
 - 🔐 JWT Authentication + Role-based Access (`Admin | User | Agent`)
 - 🏦 Wallet auto-creation with initial balance
-- 💰 Transactions: Add Money | Withdraw | Send Money
+- 💰 Transactions: Add Money | Withdraw | Send Money | Cash In | Cash Out
 - 🧾 Transaction history tracking
 - 👮 Admin controls: Block/unblock wallets, Approve agents
 - ⚡ Atomic balance updates for secure operations
@@ -24,7 +24,7 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 - **Database:** MongoDB (Mongoose ODM)
 - **Auth:** JWT, bcrypt
 - **Architecture:** Modular, layered, REST API
-- **Verification:** OTP
+- **Verification:** OTP via Email
 - **ImageUpload:** Multer,Cloudinary
 
 ---
@@ -35,7 +35,7 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 
 ---
 
-## Case Study
+## 📚 Case Studies  
 
 👉 [Multiple MongoDB Collection Problem](./caseStudies/multipleCollection.md)
 
@@ -43,7 +43,7 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 
 ## 📸 Demo
 
-👉 [Test Endpoints In Postman](./epay.postman_collection.json)
+👉 [Test Endpoints In Postman](./epay_wallet_backend.postman_collection.json)
 
 ---
 

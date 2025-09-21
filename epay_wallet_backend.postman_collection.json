@@ -1,0 +1,1105 @@
+{
+	"info": {
+		"_postman_id": "2f5b050c-a8ca-4ba8-927d-95e981c073bf",
+		"name": "epay_wallet_backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45506624",
+		"_collection_link": "https://shahariarsohan.postman.co/workspace/e9944265-e715-442a-8eb7-30fe6aa38c65/collection/45506624-2f5b050c-a8ca-4ba8-927d-95e981c073bf?action=share&source=collection_link&creator=45506624"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n      \"name\":\"sohan222\" ,\r\n     \"email\":\"sohanshahariar2@gmail.com\",\r\n    \"password\":\"sohaN222!\",\r\n\"phone\":\"01622345614\"\r\n\r\n    // \"email\":\"super1@gmail.com\",\r\n    // \"password\":\"super333R!\",\r\n   \r\n    \r\n    // \"name\":\"sohan777\",\r\n    // \"email\":\"sohanshahariar7@gmail.com\",\r\n    // \"password\":\"sohaN777!\",\r\n    // \"phone\":\"01622345639\"\r\n     \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}}/user/register",
+							"host": [
+								"{{BaseURL}}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGRkMmZiZTJiNmE1NDFkZmFkYmFhZiIsImVtYWlsIjoiYWRtaW4xMjNAZ21haWwuY29tIiwicGhvbmUiOiIwMTUyMjEzMzU1MCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDEyNTE1NCwiZXhwIjoxNzU0MjExNTU0fQ.NlI1uom_T8vvtWF8tvSghrjdWjl13_eJPoXEPz2ZP9A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/user?page=1&limit=2",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "688dd22ce2b6a541dfadba99",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"sohan7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/user/update/688dd22ce2b6a541dfadba99",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"user",
+								"update",
+								"688dd22ce2b6a541dfadba99"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGRkMjJjZTJiNmE1NDFkZmFkYmE5OSIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI3QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MzkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NDEyNTM1NSwiZXhwIjoxNzU0MjExNzU1fQ.bRNVMzDZVatAvH8ooTv7jDHW6lj7kHV0Xk-i8Fu6jwI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/v1/user/me",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGNkZDgzZmNlY2ViMTAwY2ZlM2VhNyIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI3QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MzkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NDA2MjU4NiwiZXhwIjoxNzU0MTQ4OTg2fQ.Cf0qE08p4Uz_WsvM33nL318f2ieILHIC1x7CCa2US-w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/user/688dd241e2b6a541dfadbaa3",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"user",
+								"688dd241e2b6a541dfadbaa3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "agent",
+			"item": [
+				{
+					"name": "apply agent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Sohan888\",\r\n    \"email\":\"sohanshahariar8@gmail.com\",\r\n    \"password\":\"sohaN888!\",\r\n    \"phone\":\"01622345615\"\r\n//     \"name\":\"Sohan333\",\r\n//     \"email\":\"sohanshahariar3@gmail.com\",\r\n//     \"password\":\"sohaN333!\",\r\n//     \"phone\":\"01622345617\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/agent/apply",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"agent",
+								"apply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all agent",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ODczMmY3NDY2NTZjNzM4ZGU5YiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGhvbmUiOiIwMTkwMDAwMDAwMCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE3NjUxNywiZXhwIjoxNzU2MjYyOTE3fQ.0AWJZ32fCRXiTT9al5FCSx6PqYdAgLsksEQ9M5BR16E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/agent?searchTerm=appro",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"agent"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "appro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update agent",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhODZhMzExNWIwNTIwMTY1NGE4MCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGhvbmUiOiIwMTkwMDAwMDAwMCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NTc2NDcwOSwiZXhwIjoxNzU1ODUxMTA5fQ.6WqrjjSYo-rV2bU4AWJIByky3gEFWaMJaUBsRIbU_RA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"approvalStatus\":\"approved\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/agent/update/68a6a9d83115b05201654a85",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"agent",
+								"update",
+								"68a6a9d83115b05201654a85"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"https://epay-wallet-server.vercel.app"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGI3NmY2YjY5YWU0M2YwNTAzYzUyOSIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI4QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTUiLCJyb2xlIjoiYWdlbnQiLCJpYXQiOjE3NTQwNTA2NDksImV4cCI6MTc1NDEzNzA0OX0.dbcSZxmvYuGZq5fYn88_2uHjMwvTp9YTUf0s_KcjRjE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/agent/me",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"agent",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single agent",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGFkMmRiMGFhZDU1NjAzODNmYmQ0YiIsImVtYWlsIjoiYWRtaW4xMjNAZ21haWwuY29tIiwicGhvbmUiOiIwMTUyMjEzMzU1MCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDA1MDgxMSwiZXhwIjoxNzU0MTM3MjExfQ.4CXdYUjDWfdB3QErVvj9tl3zK5Ri3896xfS3qXyVxQU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://epay-wallet-server.vercel.app/api/v1/agent/688b76f6b69ae43f0503c529",
+							"protocol": "https",
+							"host": [
+								"epay-wallet-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"agent",
+								"688b76f6b69ae43f0503c529"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    // \"password\":\"sohaN777!\"\r\n    //  \"email\":\"super1@gmail.com\",\r\n    // \"password\":\"super333R!\"\r\n//    \"email\":\"sohanshahariar7@gmail.com\",\r\n//     \"password\":\"sohaN777!\"\r\n\r\n    // \"email\":\"admin123@gmail.com\",\r\n    // \"password\":\"admiN123!\"\r\n    \"email\":\"sohanshahariar8@gmail.com\",\r\n    \"password\":\"sohaN888!\"\r\n    //  \"email\":\"sohanshahariar2@gmail.com\",\r\n    // \"password\":\"sohaN222!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://digital-wallet-system-red.vercel.app/api/v1/auth/logout",
+							"protocol": "https",
+							"host": [
+								"digital-wallet-system-red",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //  \"email\":\"sohanshahariar2@gmail.com\",\r\n    // \"password\":\"sohaN777!\"\r\n    // \"email\":\"super@gmail.com\",\r\n    // \"password\":\"super333\"\r\n    \"email\":\"sohanshahariar7@gmail.com\",\r\n    \"password\":\"sohaN777!\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/logout",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ZDM3MmY3NDY2NTZjNzM4ZGVhYyIsImVtYWlsIjoic29oYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTYwOTk0MDQsImV4cCI6MTc1NjE4NTgwNH0.zIyu5ujoCDrYpxiuWbYhZsDGey2h9YNjt65_TdHSOQg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sohanshahariar2@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/forget-password",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"forget-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjZkMTlkMDEwMDU5NzRlMjBiMWZjMiIsImVtYWlsIjoic29oYW5zaGFoYXJpYXIyQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU2OTc5NjQzLCJleHAiOjE3NTY5ODAyNDN9.Z18kEXQR8b9RUBQMF_l7RESUI8UGiz9toSe7YlGXRMo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"68b6d19d01005974e20b1fc2\",\r\n    \"newPassword\":\"sohaN12!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/auth/reset-password",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "create admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"admin123\",\r\n    \"email\":\"admin123@gmail.com\",\r\n    \"password\":\"admiN123!\",\r\n    \"phone\":\"01522133550\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://digital-wallet-system-red.vercel.app/api/v1/admin/register",
+							"protocol": "https",
+							"host": [
+								"digital-wallet-system-red",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGI3NmY2YjY5YWU0M2YwNTAzYzUyOSIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI4QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTUiLCJyb2xlIjoiYWdlbnQiLCJpYXQiOjE3NTQwNTA2NDksImV4cCI6MTc1NDEzNzA0OX0.dbcSZxmvYuGZq5fYn88_2uHjMwvTp9YTUf0s_KcjRjE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://digital-wallet-system-red.vercel.app/api/v1/agent/me",
+							"protocol": "https",
+							"host": [
+								"digital-wallet-system-red",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"agent",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wallet",
+			"item": [
+				{
+					"name": "deposit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhOWRmMzExNWIwNTIwMTY1NGE4YiIsImVtYWlsIjoic29oYW5zaGFoYXJpYXIyQGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NTc2MzgyMiwiZXhwIjoxNzU1ODUwMjIyfQ.gP8ZgG4D1vVcybeW_nROxnZQekq6N1VvmncJa0qDVrU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":3000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/wallet/deposit",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"wallet",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "withdraw",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhOWRmMzExNWIwNTIwMTY1NGE4YiIsImVtYWlsIjoic29oYW5zaGFoYXJpYXIyQGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NTc2MzgyMiwiZXhwIjoxNzU1ODUwMjIyfQ.gP8ZgG4D1vVcybeW_nROxnZQekq6N1VvmncJa0qDVrU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/wallet/withdraw",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"wallet",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send money",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhOWRmMzExNWIwNTIwMTY1NGE4YiIsImVtYWlsIjoic29oYW5zaGFoYXJpYXIyQGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NTc2MzgyMiwiZXhwIjoxNzU1ODUwMjIyfQ.gP8ZgG4D1vVcybeW_nROxnZQekq6N1VvmncJa0qDVrU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiverEmail\":\"sohanshahariar7@gmail.com\",\r\n    \"amount\":1500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/wallet/send",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"wallet",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cash in",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhOWQ4MzExNWIwNTIwMTY1NGE4NSIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI4QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTUiLCJyb2xlIjoiYWdlbnQiLCJpYXQiOjE3NTU3NjQ1NDMsImV4cCI6MTc1NTg1MDk0M30.JGhh7e7_dOdQOm69pqGwEAxTM4cPMgKV4_ECJ5BEop8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":1000,\r\n    \"userEmail\":\"sohanshahariar7@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/wallet/cashIn",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"wallet",
+								"cashIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cash Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTZhOWQ4MzExNWIwNTIwMTY1NGE4NSIsImVtYWlsIjoic29oYW5zaGFoYXJpYXI4QGdtYWlsLmNvbSIsInBob25lIjoiMDE2MjIzNDU2MTUiLCJyb2xlIjoiYWdlbnQiLCJpYXQiOjE3NTU3NjQ1NDMsImV4cCI6MTc1NTg1MDk0M30.JGhh7e7_dOdQOm69pqGwEAxTM4cPMgKV4_ECJ5BEop8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":2000,\r\n    \"userEmail\":\"sohanshahariar7@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/wallet/cashOut",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"wallet",
+								"cashOut"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all wallet",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGFkMmRiMGFhZDU1NjAzODNmYmQ0YiIsImVtYWlsIjoiYWRtaW4xMjNAZ21haWwuY29tIiwicGhvbmUiOiIwMTUyMjEzMzU1MCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDA0OTUwNCwiZXhwIjoxNzU0MTM1OTA0fQ.hYhQOjhWqkYXiGZoH53L3ZOPddOGQzA9mLQgp1LgEQk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://digital-wallet-system-red.vercel.app/api/v1/wallet",
+							"protocol": "https",
+							"host": [
+								"digital-wallet-system-red",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my wallet",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGFkMmRiMGFhZDU1NjAzODNmYmQ0YiIsImVtYWlsIjoiYWRtaW4xMjNAZ21haWwuY29tIiwicGhvbmUiOiIwMTUyMjEzMzU1MCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDAzOTI0MiwiZXhwIjoxNzU0MTI1NjQyfQ.BwoeaxpymqpiTc3h4RiaqPhJ1Uh4yopYrK0ZrT2RnfI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://digital-wallet-system-red.vercel.app/api/v1/wallet/me",
+							"protocol": "https",
+							"host": [
+								"digital-wallet-system-red",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wallet",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update lock status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGFkMmRiMGFhZDU1NjAzODNmYmQ0YiIsImVtYWlsIjoiYWRtaW4xMjNAZ21haWwuY29tIiwicGhvbmUiOiIwMTUyMjEzMzU1MCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NDA0OTUwNCwiZXhwIjoxNzU0MTM1OTA0fQ.hYhQOjhWqkYXiGZoH53L3ZOPddOGQzA9mLQgp1LgEQk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lockStatus\":\"unlocked\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/v1/wallet/lockStatus/688dd22ee2b6a541dfadba9f",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wallet",
+								"lockStatus",
+								"688dd22ee2b6a541dfadba9f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "get all transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWU2YjQ2ZWUyODU4ZDFlMmNkYjQyNiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGhvbmUiOiIwMTcyMjM3MzczNyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjYxNDc1NywiZXhwIjoxNzU3NDc4NzU3fQ.Lwr8723WgHH6I74Eh53UdLh209cxhA-LkztgFAhiT10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/transaction?minAmount=50&maxAmount=2000",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"transaction"
+							],
+							"query": [
+								{
+									"key": "minAmount",
+									"value": "50"
+								},
+								{
+									"key": "maxAmount",
+									"value": "2000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ZDM3MmY3NDY2NTZjNzM4ZGVhYyIsImVtYWlsIjoic29oYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTYwOTk0MDQsImV4cCI6MTc1NjE4NTgwNH0.zIyu5ujoCDrYpxiuWbYhZsDGey2h9YNjt65_TdHSOQg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/transaction/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"transaction",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get recent transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWMwY2Q5YThkNGYzOWY0MWRmNWQ0MCIsImVtYWlsIjoiYWdlbnRAZ21haWwuY29tIiwicGhvbmUiOiIwMTgyMjIzMzQzNSIsInJvbGUiOiJhZ2VudCIsImlhdCI6MTc1NjE4OTI1NCwiZXhwIjoxNzU2Mjc1NjU0fQ.aF_Pb1G3iXXfe-W6Aa3M9vdv4KKjmxnt44K_Kc3Lqic",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/transaction/recent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"transaction",
+								"recent"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stats",
+			"item": [
+				{
+					"name": "user aggregate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/stats/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "agent aggregate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/stats/agent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"agent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "wallets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/stats/wallet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transacitons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/stats/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/stats/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"stats",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "otp",
+			"item": [
+				{
+					"name": "Send",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ZDM3MmY3NDY2NTZjNzM4ZGVhYyIsImVtYWlsIjoic29oYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTYwOTk0MDQsImV4cCI6MTc1NjE4NTgwNH0.zIyu5ujoCDrYpxiuWbYhZsDGey2h9YNjt65_TdHSOQg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/otp/send",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"otp",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ZDM3MmY3NDY2NTZjNzM4ZGVhYyIsImVtYWlsIjoic29oYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTYwOTk0MDQsImV4cCI6MTc1NjE4NTgwNH0.zIyu5ujoCDrYpxiuWbYhZsDGey2h9YNjt65_TdHSOQg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\":\"529325\" ,\r\n     \"email\":\"sohanshahariar7@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/otp/verify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"otp",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "image upload",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWE5ZGEwMmY3NDY2NTZjNzM4ZGViMiIsImVtYWlsIjoic29oYW4xQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU2NzM5MjAyLCJleHAiOjE3NTc2MDMyMDJ9.ZQnboNV1Lwbe_XVY_EZW5U4DvPcYOA6X14uS6jLWCLY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"68b6d19d01005974e20b1fc2\",\r\n    \"newPassword\":\"sohaN222!\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/image/upload/68aa9d372f746656c738deac",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"upload",
+								"68aa9d372f746656c738deac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image delete",
+					"request": {
+						"method": "PATCH",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
