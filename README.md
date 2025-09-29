@@ -29,6 +29,12 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 
 ---
 
+## Live link
+
+👉 [Live Server](https://epay-wallet-server.vercel.app)
+
+---
+
 ## Apis
 
 👉 [Necessary Apis Here](./apis/endpoints.md)
@@ -41,7 +47,7 @@ Built with **Express.js + Mongoose** following enterprise-grade architecture.
 
 ---
 
-## 📸 Demo
+## 📸 Demo Postman
 
 👉 [Test Endpoints In Postman](./epay_wallet_backend.postman_collection.json)
 
